@@ -48,9 +48,9 @@ In order to achieve this, we have to keep some ideas in mind when designing an a
  1. Allow the presence of evolving self-replicators.  
  2. Be as agnostic as possible regarding the organisms. This means that one should not implement functions that will implement some aspects of the life of  the organisms, because any such hard-defined function will be de facto put aside of the  evolutionary process.
 
-One of the problems arising from the second point is about *membranes*. Membranes are a key part of any living organism : they define what is part of the organism, and what is not. 
+One of the problems arising from the second point is about *membranes*. Membranes are a key part of any living organism : they define what is part of the organism, and what is not.  And although self-replicators have been designed in many different situations, full featured membranes are still out of reach.
 
-It is the 
+
 
 ## A quick overview of existing artificial chemistries
 
@@ -78,7 +78,7 @@ There have been several attemps to design artificial chemistries. Here is a very
     * slow simulation (although other approaches allow to speed this up)
     * lack of expressiveness
 
-## Yet another achem (Yaa)
+## Yet Another Achem (Yaa)
 
 From reviewing results achieved by these chemistries (and others as well), I decided to design my own.
 Here were my goals :
@@ -86,7 +86,7 @@ Here were my goals :
  * Allow good expressiveness
  * Allow fast simulations
 
-A starting point to allow fast simulation is to forget the real physical world, since trajectory computations are way to eager in 2D, let alone in 3D.
+A starting point to allow fast simulation is to forget the real physical world, since trajectory computations are way to eager in 2D, let alone in 3D. But the linear world on which Tierra is set is by nature very narrow. And designing multidimensional computer programs is far from trivial.
 
 After thinking about this problem every now and then in the year following my internship, I came across...Petri nets ! 
 
@@ -121,9 +121,7 @@ To be continued.
 <li>Be as agnostic as possible regarding the organisms. This means that one should not implement functions that will implement some aspects of the life of  the organisms, because any such hard-defined function will be de facto put aside of the  evolutionary process.</li>
 </ol>
 
-<p>One of the problems arising from the second point is about <em>membranes</em>. Membranes are a key part of any living organism : they define what is part of the organism, and what is not. </p>
-
-<p>It is the </p>
+<p>One of the problems arising from the second point is about <em>membranes</em>. Membranes are a key part of any living organism : they define what is part of the organism, and what is not.  And although self-replicators have been designed in many different situations, full featured membranes are still out of reach.</p>
 
 <h2 id="aquickoverviewofexistingartificialchemistries">A quick overview of existing artificial chemistries</h2>
 
@@ -155,7 +153,7 @@ To be continued.
 <li>lack of expressiveness</li></ul></li>
 </ul>
 
-<h2 id="yetanotherachemyaa">Yet another achem (Yaa)</h2>
+<h2 id="yetanotherachemyaa">Yet Another Achem (Yaa)</h2>
 
 <p>From reviewing results achieved by these chemistries (and others as well), I decided to design my own.
 Here were my goals :
@@ -163,7 +161,7 @@ Here were my goals :
  * Allow good expressiveness
  * Allow fast simulations</p>
 
-<p>A starting point to allow fast simulation is to forget the real physical world, since trajectory computations are way to eager in 2D, let alone in 3D.</p>
+<p>A starting point to allow fast simulation is to forget the real physical world, since trajectory computations are way to eager in 2D, let alone in 3D. But the linear world on which Tierra is set is by nature very narrow. And designing multidimensional computer programs is far from trivial.</p>
 
 <p>After thinking about this problem every now and then in the year following my internship, I came across...Petri nets ! </p>
 
