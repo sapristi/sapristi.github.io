@@ -31,17 +31,30 @@
 
 After doing an internship at the INRIA BEAGLE Team involving artificial chemistries and artificial life, I got really caught with the subject.
 
-An *artificial chemistry* is a program, or a mathematical model, that implements chemistry-like features. *Artificial life* on the other hand is an attempt to build such a model or program that will allow organisms to live and evolve.
+I will try in the following post to describe what I remember about this field, and how I tried to circumvent the shortcomming I saw in the previous research in this field (as I write this from several years old memories, errors and imprecisions are to be expected). 
 
-The two main objectives in artificial life are to reach
 
- * open-ended evolution : the organisms should keep evolving, in other words, there must not be a « best possible organism »
- * open-ended complexity : the organisms should keep developping new functions, new capacities
+## Artificial chemistries for artificial life
 
+An *artificial chemistry* is a program, or a mathematical model, that implements chemistry-like features. *Artificial life* on the other hand is an attempt to build such a model or program that will allow organisms to live, reproduce and evolve.
+
+The two main objectives in artificial life are to reach :
+
+ * open-ended evolution : the organisms should keep evolving. This implies that there must not be a « best possible organism ».
+ * open-ended complexity : the organisms should keep developping new functions, new capacities.
+
+In order to achieve this, we have to keep some ideas in mind when designing an artificial chemistry  :
+ 
+ 1. Allow the presence of evolving self-replicators.  
+ 2. Be as agnostic as possible regarding the organisms. This means that one should not implement functions that will implement some aspects of the life of  the organisms, because any such hard-defined function will be de facto put aside of the  evolutionary process.
+
+One of the problems arising from the second point is about *membranes*. Membranes are a key part of any living organism : they define what is part of the organism, and what is not. 
+
+It is the 
 
 ## A quick overview of existing artificial chemistries
 
-There have been several attemps to design artificial chemistries. Here is a very brief review of some of them (as I write this from several years old memories, errors and imprecisions are to be expected). 
+There have been several attemps to design artificial chemistries. Here is a very brief review of some of them 
 
  * Tierra : deeply rooted in the computer world, Tierra is an achem where the organisms are programs, living in a linear memory array.
     
@@ -52,12 +65,14 @@ There have been several attemps to design artificial chemistries. Here is a very
 
    **Cons :** 
     * evolutions stops at some point
+    * Hard membranes
 
 
  * Hutton's : An artificial chemistry where atoms have different types and states, and live in a 2D world. Rules allow atoms to bind and unbind. A set of custom rules allows to implement self-reproducing organisms.
   
   **Pros :** 
     * achieved some fitness evolution
+    * emerging membranes
   
   **Cons :**
     * slow simulation (although other approaches allow to speed this up)
@@ -86,18 +101,33 @@ To be continued.
 
 <p>After doing an internship at the INRIA BEAGLE Team involving artificial chemistries and artificial life, I got really caught with the subject.</p>
 
-<p>An <em>artificial chemistry</em> is a program, or a mathematical model, that implements chemistry-like features. <em>Artificial life</em> on the other hand is an attempt to build such a model or program that will allow organisms to live and evolve.</p>
+<p>I will try in the following post to describe what I remember about this field, and how I tried to circumvent the shortcomming I saw in the previous research in this field (as I write this from several years old memories, errors and imprecisions are to be expected). </p>
 
-<p>The two main objectives in artificial life are to reach</p>
+<h2 id="artificialchemistriesforartificiallife">Artificial chemistries for artificial life</h2>
+
+<p>An <em>artificial chemistry</em> is a program, or a mathematical model, that implements chemistry-like features. <em>Artificial life</em> on the other hand is an attempt to build such a model or program that will allow organisms to live, reproduce and evolve.</p>
+
+<p>The two main objectives in artificial life are to reach :</p>
 
 <ul>
-<li>open-ended evolution : the organisms should keep evolving, in other words, there must not be a « best possible organism »</li>
-<li>open-ended complexity : the organisms should keep developping new functions, new capacities</li>
+<li>open-ended evolution : the organisms should keep evolving. This implies that there must not be a « best possible organism ».</li>
+<li>open-ended complexity : the organisms should keep developping new functions, new capacities.</li>
 </ul>
+
+<p>In order to achieve this, we have to keep some ideas in mind when designing an artificial chemistry  :</p>
+
+<ol>
+<li>Allow the presence of evolving self-replicators.  </li>
+<li>Be as agnostic as possible regarding the organisms. This means that one should not implement functions that will implement some aspects of the life of  the organisms, because any such hard-defined function will be de facto put aside of the  evolutionary process.</li>
+</ol>
+
+<p>One of the problems arising from the second point is about <em>membranes</em>. Membranes are a key part of any living organism : they define what is part of the organism, and what is not. </p>
+
+<p>It is the </p>
 
 <h2 id="aquickoverviewofexistingartificialchemistries">A quick overview of existing artificial chemistries</h2>
 
-<p>There have been several attemps to design artificial chemistries. Here is a very brief review of some of them (as I write this from several years old memories, errors and imprecisions are to be expected). </p>
+<p>There have been several attemps to design artificial chemistries. Here is a very brief review of some of them </p>
 
 <ul>
 <li><p>Tierra : deeply rooted in the computer world, Tierra is an achem where the organisms are programs, living in a linear memory array.</p>
@@ -110,12 +140,14 @@ To be continued.
 
 <p><strong>Cons :</strong> </p>
 
-<ul><li>evolutions stops at some point</li></ul></li>
+<ul><li>evolutions stops at some point</li>
+<li>Hard membranes</li></ul></li>
 <li><p>Hutton's : An artificial chemistry where atoms have different types and states, and live in a 2D world. Rules allow atoms to bind and unbind. A set of custom rules allows to implement self-reproducing organisms.</p>
 
 <p><strong>Pros :</strong> </p>
 
-<ul><li>achieved some fitness evolution</li></ul>
+<ul><li>achieved some fitness evolution</li>
+<li>emerging membranes</li></ul>
 
 <p><strong>Cons :</strong></p>
 
