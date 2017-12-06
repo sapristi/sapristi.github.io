@@ -25,60 +25,24 @@
 	</div>
 <div id="md" style="display: none;">
 <!-- markdown -->
-#Designing an artificial chemistry
+#Yet another achem
 
-## Where it starts
+Petri nets seemed like the perfect framework for my project. Since they are totally decorelated with the physical world, the simulation could be fast, and they can be very expressive.
 
-After doing an internship at the INRIA BEAGLE Team involving artificial chemistries and artificial life, I got really caught with the subject.
+## First milestone
 
-An *artificial chemistry* is a program, or a mathematical model, that implements chemistry-like features. *Artificial life* on the other hand is an attempt to build such a model or program that will allow organisms to live and evolve.
-
-The two main objectives in artificial life are to reach
-
- * open-ended evolution : the organisms should keep evolving, in other words, there must not be a « best possible organism »
- * open-ended complexity : the organisms should keep developping new functions, new capacities
-
-
-## A quick overview of existing artificial chemistries
-
-There have been several attemps to design artificial chemistries. Here is a very brief review of some of them (as I write this from several years old memories, errors and imprecisions are to be expected). 
-
- * Tierra : deeply rooted in the computer world, Tierra is an achem where the organisms are programs, living in a linear memory array.
-    
-  **Pros :** 
-    * very fast simulation
-    * organisms can interact
-    * achieved some evolution in complexity
-
-   **Cons :** 
-    * evolutions stops at some point
-
-
- * Hutton's : An artificial chemistry where atoms have different types and states, and live in a 2D world. Rules allow atoms to bind and unbind. A set of custom rules allows to implement self-reproducing organisms.
-  
-  **Pros :** 
-    * achieved some fitness evolution
-  
-  **Cons :**
-    * slow simulation (although other approaches allow to speed this up)
-    * lack of expressiveness
-
-## Yet another achem (Yaa)
-
-From reviewing results achieved by these chemistries (and others as well), I decided to design my own.
-Here were my goals :
- * Allow for interaction between organisms
- * Allow good expressiveness
- * Allow fast simulations
-
-A starting point to allow fast simulation is to forget the real physical world, since trajectory computations are way to eager in 2D, let alone in 3D.
-
-To be continued.
+The first result I wanted to achieve was to implement self-replication. I thus twisted petri nets a bit in order to achieve this.
 <!-- markdown end -->
 </div>
 <div class="entry" id="main">
 <!-- content -->
+<h1 id="yetanotherachem">Yet another achem</h1>
 
+<p>Petri nets seemed like the perfect framework for my project. Since they are totally decorelated with the physical world, the simulation could be fast, and they can be very expressive.</p>
+
+<h2 id="firstmilestone">First milestone</h2>
+
+<p>The first result I wanted to achieve was to implement self-replication. I thus twisted petri nets a bit in order to achieve this.</p>
 <!-- content end -->
 </div>
 <br>
