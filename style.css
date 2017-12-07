@@ -1,0 +1,31 @@
+body {
+    max-width:90%;
+}
+
+#main-block {
+    margin:auto;
+    padding-right:30%;
+}
+#nav-menu {
+    padding-top:30%;
+}
+
+.puremenuitem.current {
+    background-color: #ffffff;
+    border: 1px solid #eeeeec;
+}
+div#footer {
+    color: gray;
+    text-align: center;
+    font-size: small;
+}
+div#footer a {
+    color: gray;
+    text-decoration: none;
+}
+pre {
+    border: dotted black 1px;
+    background: #eeeeec;
+    font-size: small;
+    padding: 1em;
+}
