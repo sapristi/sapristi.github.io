@@ -5,64 +5,36 @@
     <title>poole - home</title>
     <meta name="description" content="a poole site" />
     <meta name="keywords" content="poole" />
-    <style type="text/css">
-        body {
-            font-family: sans;
-            width: 800px;
-            margin: 1em auto;
-            color: #2e3436;
-        }
-        div#box {
-        }
-        div#header, div#menu, div#content, div#footer {
-            padding: 1em;
-        }
-        div#menu {
-            background-color: #eeeeec;
-            padding: 0.6em 0 0.6em 0;
-        }
-        #menu span {
-            font-weight: bold;
-            padding: 0.6em;
-        }
-        #menu span.current {
-            background-color: #ffffff;
-            border: 1px solid #eeeeec;
-        }
-        #menu a {
-            color: #000000;
-            text-decoration: none;
-        }
-        div#footer {
-            color: gray;
-            text-align: center;
-            font-size: small;
-        }
-        div#footer a {
-            color: gray;
-            text-decoration: none;
-        }
-        pre {
-            border: dotted black 1px;
-            background: #eeeeec;
-            font-size: small;
-            padding: 1em;
-        }
-    </style>
+    
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/sakura.css" />
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
 </head>
 <body>
-    <div id="box">
-    <div id="header">
-         <h1>a poole site</h1>
-         <h2>home</h2>
+  <div class="pure-g">
+    
+    <div class="pure-u-1-5">
+      
+      <div class="pure-menu" id="nav-menu">
+	<ul class="pure-menu-list">
+<li class="pure-menu-item pure-menu-selected"><a href="/index.html">home</a></li>
+<li class="pure-menu-item"><a href="/blog.html">blog</a></li>
+	</ul>
+      </div>
+
     </div>
-    <div id="menu">
-    <span class="current"><a href="/index.html">home</a></span>
-<span class=""><a href="/layout.html">layout</a></span>
-<span class=""><a href="/logic.html">logic</a></span>
-<span class=""><a href="/blog.html">blog</a></span>
-    </div>
-    <div id="content"><h2>Welcome to Poole</h2>
+
+    
+    <div class="pure-u-4-5">
+      <div id="main-block">
+      
+	<div id="header">
+	  <h1></h1>
+	  <h2>home</h2>
+      </div>
+      
+      <div id="content"><h2>Welcome to Poole</h2>
 <p>In Poole you write your pages in <a href="http://daringfireball.net/projects/markdown/">markdown</a>. It's easier to write
 markdown than HTML.</p>
 <p>Poole is made for simple websites you just want to get done, without installing
@@ -71,13 +43,19 @@ a bunch of requirements and without learning a template engine.</p>
 directory. During that process every markdown file (ending with <em>md</em>, <em>mkd</em>,
 <em>mdown</em> or <em>markdown</em>) is converted to HTML using the project's <code>page.html</code>
 as a skeleton.</p></div>
+      </div>
     </div>
-    <div id="footer">
+
+    
+    <div class="pure-u-1">
+      <div id="footer">
         Built with <a href="http://bitbucket.org/obensonne/poole">Poole</a>
         &middot;
         Licensed as <a href="http://creativecommons.org/licenses/by-sa/3.0">CC-SA</a>
         &middot;
         <a href="http://validator.w3.org/check?uri=referer">Validate me</a>
+      </div>
     </div>
+  </div>
 </body>
 </html>
