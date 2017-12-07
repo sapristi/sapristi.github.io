@@ -21,7 +21,7 @@
 <!--%
 mpages = [p for p in pages if "menu-position" in p]
 mpages.sort(key=lambda p: int(p["menu-position"]))
-entry = '<li class="%s"><a href="%s">%s</a></li>'
+entry = '<li class="%s"><a href="%s"><h4>%s</h4></a></li>'
 for p in mpages:
   style = "pure-menu-item"
   if p["title"] == page["title"]:
@@ -38,9 +38,9 @@ for p in mpages:
       <div id="main-block">
       
 	<div id="header">
-	  <h1></h1>
-	  <h2>{{ hx(page["title"]) }}</h2>
-      </div>
+	  <div><h1 class="site-title">{{ hx(page["title"]) }}</h1></div>
+	  <div><h1 class="site-title">mmill</h1></div> 
+	</div>
       
       <div id="content">{{ __content__ }}</div>
       </div>
