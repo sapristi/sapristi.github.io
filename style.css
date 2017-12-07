@@ -1,3 +1,14 @@
+#header{
+    display: flex;
+    border-bottom: 2px dashed #888;
+    justify-content: space-between;
+    bottom-margin:40px;
+}
+.site-title {
+    margin:5px;
+    color:lightblue;
+}
+
 body {
     max-width:90%;
 }
@@ -8,8 +19,13 @@ body {
 }
 #nav-menu {
     padding-top:30%;
+    text-align:right;
+    padding-right:70px;
 }
 
+#nav-menu li {
+    margin:30px 0;
+}
 .puremenuitem.current {
     background-color: #ffffff;
     border: 1px solid #eeeeec;
