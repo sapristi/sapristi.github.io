@@ -25,10 +25,16 @@ body {
 
 #nav-menu li {
     margin:30px 0;
+    color:black;
 }
-.puremenuitem.current {
-    background-color: #ffffff;
-    border: 1px solid #eeeeec;
+
+#nav-menu a {
+    color:black;
+}
+
+#nav-menu a:hover {
+    color:black;
+    border-bottom: 1px solid lightblue;
 }
 div#footer {
     color: gray;

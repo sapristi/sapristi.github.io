@@ -21,13 +21,16 @@
 <!--%
 mpages = [p for p in pages if "menu-position" in p]
 mpages.sort(key=lambda p: int(p["menu-position"]))
-entry = '<li class="%s"><a href="%s"><h4>%s</h4></a></li>'
+entry = '<li class="%s"><a href="%s">%s</a></li>'
 for p in mpages:
   style = "pure-menu-item"
+  title = hx(p["title"])
   if p["title"] == page["title"]:
     style += " pure-menu-selected"
-  print(entry % (style, p["url"], hx(p["title"])))	       
-	       %-->
+    title = "<span style='color:cadetblue'>></span> " + title 
+  print(entry % (style, p["url"], title))	       
+
+     %-->
 	</ul>
       </div>
 
