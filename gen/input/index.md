@@ -1,4 +1,4 @@
-
+type: page
 title: HOME
 menu-position: 0
 ---
