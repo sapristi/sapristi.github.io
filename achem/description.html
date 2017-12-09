@@ -1,0 +1,680 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>milim - description</title>
+    <meta name="description" content="a poole site" />
+    <meta name="keywords" content="poole" />
+    
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/sakura.css" />
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+</head>
+<body>
+  <div class="pure-g">
+    
+    <div class="pure-u-1-5">
+      
+      <div class="pure-menu" id="nav-menu">
+	<ul class="pure-menu-list">
+<li class="pure-menu-item"><a href="/index.html">HOME</a><span><</span></li>
+<li class="pure-menu-item"><a href="/achem.html">ACHEM</a><span><</span></li>
+<li class="pure-menu-item"><a href="/blog.html">BLOG</a><span><</span></li>
+	</ul>
+      </div>
+
+    </div>
+
+    
+    <div class="pure-u-4-5">
+      <div id="main-block">
+      
+	<div id="header">
+	  <div><h1>description</h1></div>
+	  <div><h1>milim</h1></div> 
+	</div>
+      
+      <div id="content"><div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Intro</a>
+<ul>
+<li><a href="#sec-1-1">1.1. Résumé des épisodes précédents</a></li>
+<li><a href="#sec-1-2">1.2. Où l'on essaie de préparer un autre épisode</a></li>
+<li><a href="#sec-1-3">1.3. Trucs importants à garder en tête</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. Description de ce que j'essaie de faire</a>
+<ul>
+<li><a href="#sec-2-1">2.1. But</a></li>
+<li><a href="#sec-2-2">2.2. Implémentation actuelle</a>
+<ul>
+<li><a href="#sec-2-2-1">2.2.1. Atomes et Molécules</a></li>
+<li><a href="#sec-2-2-2">2.2.2. Acides et Protéines</a></li>
+<li><a href="#sec-2-2-3">2.2.3. Construction d'un réseau de pétri</a></li>
+<li><a href="#sec-2-2-4">2.2.4. Fonctionnement d'un réseau de pétri</a></li>
+<li><a href="#sec-2-2-5">2.2.5. Réseaux de pétri étendus</a></li>
+<li><a href="#sec-2-2-6">2.2.6. Réactions</a></li>
+<li><a href="#sec-2-2-7">2.2.7. Réacteur et Simulation</a></li>
+</ul>
+</li>
+<li><a href="#sec-2-3">2.3. Réflexions, choix et ouvertures</a>
+<ul>
+<li><a href="#sec-2-3-1">2.3.1. Arguments pour le réseau de pétri</a></li>
+<li><a href="#sec-2-3-2">2.3.2. Forme des molécules</a></li>
+<li><a href="#sec-2-3-3">2.3.3. Membrane</a></li>
+<li><a href="#sec-2-3-4">2.3.4. Ribosome</a></li>
+<li><a href="#sec-2-3-5">2.3.5. Bacterie</a></li>
+<li><a href="#sec-2-3-6">2.3.6. Le monde</a></li>
+<li><a href="#sec-2-3-7">2.3.7. Énergie</a></li>
+<li><a href="#sec-2-3-8">2.3.8. Dans un futur lointain</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<h1>Intro<a id="sec-1" name="sec-1"></a></h1>
+<p>Du coup, on veut ici créer un programme qui réalise le rêve de
+la vie artificielle :
+héberger et simuler des cellules qui vont évoluer afin de recréer
+la vie <em>in silico</em> (on peut toujours rêver).</p>
+<h2>Résumé des épisodes précédents<a id="sec-1-1" name="sec-1-1"></a></h2>
+<p>Il y a eu plusieurs essais dans ce sens : 
+-   Tierra : 
+    -   Le monde est un tableau unidimensionnel. Chaque case est soit
+        vide, soit contient une instruction, parmi un jeu 
+        d'instruction bien choisi.</p>
+<pre><code>-   Les cellules sont un ensemble contigu de cases, et donc des
+    instructions qu'elles contiennent.
+
+Le jeu d'instruction permet aux cellules de lire n'importe où, 
+mais pas d'écrire à l'intérieur d'autres cellules. Les cellules 
+se dupliquent en recopiant leur code génétique vers une partie 
+vide de la bande.
+
+-   Chaque cellule a son processeur propre, qui simule
+    l'exécution de son code.
+
+-   Comportements apparus : spécialisation, parasitage, un peu de 
+    complexification
+</code></pre>
+<ul>
+<li>
+<p>Des trucs d'Hutton : </p>
+<ul>
+<li>
+<p>Le monde est un tableau bidimensionnel. Le monde contient
+    des atomes, qui peuvent se déplacer plus ou moins librement.</p>
+</li>
+<li>
+<p>Les atomes ont un type donné, et un état qui peut varier au 
+    cours du temps. Un jeu de réactions chimique, qui détermine 
+    si deux atomes de type et d'état donné qui se rencontrent 
+    vont former une liaison. 
+    Jeu de réactions chimiques bien choisi.</p>
+</li>
+<li>
+<p>Les cellules ont une membrane qui forme un cercle, et un brin 
+    d'ADN, relié à ses deux extrémités à la membrane. Les 
+    cellules se dupliquent de manière spontanée grâce aux 
+    réactions chimiques.</p>
+</li>
+<li>
+<p>Le monde est simulé <em>physiquement</em>, c'est à dire chaque atome 
+    séparemment, et rien d'autre.</p>
+</li>
+<li>
+<p>Comportements apparus : pas grand chose, à part une légère 
+    réduction de l'ADN.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>En résumé, Tierra s'est montré prometteur, mais est beaucoup plus 
+proche d'un ordinateur que d'une cellule. On manque en particulier 
+de capacité de réaction, de communication, etc&#x2026;</p>
+<p>Hutton est très proche en quelques sorte de la biologie, mais 
+ça ne marche pas très bien. Sans parler des coûts de simulation 
+faramineux, ni du jeu de réactions chimiques tellement alambiqué 
+pour que ça marche que c'en est un peu absurde. </p>
+<h2>Où l'on essaie de préparer un autre épisode<a id="sec-1-2" name="sec-1-2"></a></h2>
+<p>Ce que j'aimerait faire, c'est un modèle qui soit à la fois proche
+du fonctionnement des ordinateurs (c'est à dire en particulier avec 
+une physique très simple, sans avoir besoin de simuler des choses à 
+un niveau très bas), et qui reflète le principe de fonctionnement 
+d'une cellule autant qu'il est souhaitable et possible.</p>
+<p>Une première idée à été de faire un peu comme Tierra, mais en plus 
+de dimensions. Une cellule est une matrice, où les fonctions sont
+des instructions qui pointent vers la suivante (contiguë). En trois
+dimensions, ça peut commencer à donner des trucs assez rigolos, 
+mais gérer la duplication semble devenir complexe. On perds aussi 
+la bonne relation qui existait entre les cellules et l'univers.</p>
+<p>La deuxième idée est d'utiliser des modèles complutationnels simples 
+pour simuler les protéines. Partant des automates, j'en suis arrivé 
+aux réseaux de Petri, qui me semblent assez prometteurs. 
+On le décrira plus précisement par la suite.</p>
+<h2>Trucs importants à garder en tête<a id="sec-1-3" name="sec-1-3"></a></h2>
+<p>Les membranes, c'est la vie en plus tranquille.
+La communication, c'est la vie en plus rigolo.
+La vie tout court, c'est déjà pas mal.
+Les ribosomes, c'est trop l'éclate.
+Toute action engendre une réaction.</p>
+<h1>Description de ce que j'essaie de faire<a id="sec-2" name="sec-2"></a></h1>
+<h2>But<a id="sec-2-1" name="sec-2-1"></a></h2>
+<p>Le but est d'avoir un modèle unifié de molécules, qui permettent à 
+la fois d'avoir des molécules qui :
+-   représentent de l'information (ADN)
+-   puissent agir sur d'autres molécules (protéines, enzymes), et 
+    plus précisement 
+    -   Découper une molécule
+    -   Insérer une molécule dans une autre
+    -   Lire de l'information écrite sur une molécule
+-   puissent échanger de l'information (métabolites)</p>
+<p>Enfin en vrai le but c'est de faire des <strong>RIBOSOMES</strong>, 
+ne l'oublions pas.</p>
+<p>Et aussi des membranes, élément essentiel de toute bactérie qui se respecte.</p>
+<h2>Implémentation actuelle<a id="sec-2-2" name="sec-2-2"></a></h2>
+<h3>Atomes et Molécules<a id="sec-2-2-1" name="sec-2-2-1"></a></h3>
+<p>Les éléments de bases sont des atomes (ensemble fini).
+Pour l'instant, les atomes sont au nombres de 6 : A,B,C,D,E,F
+Les atomes se combinent linéairement pour former des molécules.</p>
+<p>Autrement dit, une molécule est une chaine contenant les caractères A-F.</p>
+<h3>Acides et Protéines<a id="sec-2-2-2" name="sec-2-2-2"></a></h3>
+<p>Une molécule est parsée linéairement, pour produire une liste d'acides,
+c'est à dire une protéine.</p>
+<p>Il y a quatre types d'acides :
+-   Place :
+    correspond à une place d'un réseau de pétri</p>
+<ul>
+<li>
+<p>Input_arc :
+    correspond à un arc entrant d'une transition.
+    Il y a trois types d'Input_arc :</p>
+<ul>
+<li>Regular_iarc (tid) :
+    pas d'effet particulier</li>
+<li>Split_iarc (tid) :
+    sépare en deux les tokens qui passent par l'arc
+    ( en découpant aussi la molécule éventuellement présente )</li>
+<li>Filter_iarc (filter_pattern, tid) : 
+    Ne laisse passer que les token dont la position courante 
+    de la molécule contenue correspond au filter_pattern</li>
+</ul>
+</li>
+<li>
+<p>Output_arc :
+    correspond à un arc sortant d'une transition.
+    Il y a trois types d'Output_arc :</p>
+<ul>
+<li>Regular_oarc (tid) :
+    pas d'effet particulier</li>
+<li>Move_oarc (tid, move)
+    déplace la molécule contenue dans le token suivant move</li>
+<li>Bind_oarc (tid)
+    Fusionne deux tokens (et les molécules qu'ils contiennent)</li>
+</ul>
+</li>
+<li>
+<p>Extension :
+    Ajoute des fonctionnalités à une place</p>
+<ul>
+<li>Bind_ext (binder) :
+    Ajoute un binder</li>
+<li>Grab_ext (graber) :
+    ajoute un graber</li>
+<li>Init_with_token_ext :
+    la place est initialisée avec un token (vide)</li>
+<li>Release_ext
+    les tokens qui arrivent depuis une transition sont relachés
+    à l'extérieur</li>
+</ul>
+</li>
+</ul>
+<p>Les types d'acides correspondent à une courte chaîne de caractères
+(deux ou trois). Quand l'acide a besoin de plus d'information, 
+l'information est encodée par la chaîne qui suit l'acide, terminée 
+par un marqueur de fin (deux ou trois caractères, commun à tous 
+les acides).</p>
+<h3>Construction d'un réseau de pétri<a id="sec-2-2-3" name="sec-2-2-3"></a></h3>
+<p>Pour construire le réseau de pétri associé à une protéine,
+la protéine est lue séquentiellement : </p>
+<ol>
+<li>Tous les acides qui précèdent le premier acide Place
+    sont ignorés</li>
+<li>
+<p>À chaque acide Place rencontrée, une nouvelle Place du 
+    réseau est construite.
+    Tant qu'une autre Place n'est pas rencontrée, les acides
+    qui suivent seront liés à la place.</p>
+<p>Pour simplifier les réactions, seul le premier Bind
+et le premier Grab seront pris en compte par une place.</p>
+</li>
+<li>
+<p>TODO Un <strong>PROBLÈME</strong>:</p>
+<p>Que se passe-t-il si plusieurs transtions input avec la même id 
+partent d'un même nœud, en particulier 
+pour la gestion des token ?
+Plusieurs pistes :
+-   la transition n'est pas crée
+-   seul un des arcs est pris en compte
+-   utiliser un des arcs au hasard
+-   le programme bugge</p>
+</li>
+</ol>
+<h3>Fonctionnement d'un réseau de pétri<a id="sec-2-2-4" name="sec-2-2-4"></a></h3>
+<p>Le modéle est inspiré des modèles existants, avec 
+certaines spécificités. On a un graphe avec deux types
+de nœuds : 
+-   Des Places :
+    -   Peuvent contenir au plus un Token.
+    -   Interagissent avec l'extérieur.
+-   Des Transitions :
+    -   font passer les Tokens d'une place à l'autre,
+        en appliquant des effets particuliers.</p>
+<p>Des arcs entrants vont des places aux transitions, 
+et des arcs sortants vont des transitions aux places.</p>
+<p>Les Tokens peuvent éventuellement contenir 
+une molécule, ainsi qu'un pointeur vers 
+un acide particulier (ou à la fin de la 
+molécule).</p>
+<ol>
+<li>
+<p>Fonctionnement des transitions :</p>
+<p>Une transition sera déclenchable si toutes les places avec des arcs
+entrants contiennent un token, et toutes les places d'arrivée 
+sont vides.</p>
+<p>Quand une transition est déclenchée :
+1.  Les arcs entrants sont parcourus séquentiellement (dans l'ordre 
+    dans lequel ils apparaissent dans la protéine). Une liste de tokens 
+    est alors générée, qui correspond aux tokens des places de départ 
+    après modification par les arcs entrants.
+2.  La liste de token est parcourue, et les tokens répartis 
+    dans les arcs sortants (un token par arc, sauf pour les bind).
+3.  Si le nombre de Token est supérieur au nombre d'arcs sortants,
+    les Tokens restants sont relachés à l'extérieur
+    (avec éventuellement des effets supplémentaires à l'avenir).</p>
+<p>En particulier, l'ordre dans lequels les places apparaissent dans 
+la molécule a une influence sur le fonctionnement du réseau de pétri.</p>
+</li>
+</ol>
+<h3>Réseaux de pétri étendus<a id="sec-2-2-5" name="sec-2-2-5"></a></h3>
+<p>Les réactions de type Bind lient deux réseaux de pétri entre eux.
+Cette opération peut-être réalisée à volonté, pour former 
+des graphes arbitraires de réseaux de pétri.</p>
+<h3>Réactions<a id="sec-2-2-6" name="sec-2-2-6"></a></h3>
+<p>Une réaction est susceptible de se produire lorsque deux 
+molécules se rencontrent. Il y a pour l'instant deux types 
+de réactions implémentées :
+Grab et Bind</p>
+<p>Le renvoi d'une molécule à l'extérieur peut aussi être vu
+comme un type de réaction.</p>
+<ol>
+<li>
+<p>Grab</p>
+<p>Une place dotée d'une extension Grab sera capable d'attraper
+des molécules particulières, qui seront alors placées 
+à l'intérieur d'un Token.</p>
+<p>Un acide de type Grab contient un chaîne de caractères,
+qui est parsée pour générer une expression régulière 
+(restreinte).
+Les molécules qui sont matchées par l'expression régulière
+pourront être grabés (attrapées).</p>
+<p>Un grab ne peut se produire que si la place n'a pas de Token.</p>
+</li>
+<li>
+<p>TODO Bind</p>
+<p>Une extension de type bind possède un bind_pattern 
+(une chaîne de caractère). 
+Deux Places avec Bind de réseaux de pétri différent pourront
+se binder (s'attacher) si les chaînes de caractères 
+sont le symétrique l'une de l'autre (reverse),
+et que les deux places n'ont pas de Token.</p>
+<p>Lorsqu'un Bind se produit, un token est créé dans les
+deux places impliquées.</p>
+<p>Dès que les deux places reçoivent à nouveau un token,
+les places se séparent (unbind).</p>
+<p>&#x2013;&gt; Mais donc  :
+-   soit la phase de réactions se produit avant 
+    la phase de déclenchment de transitions.
+    Si les tokens sont toujours là après le déclenchement,
+    on sépare
+-   soit il faut faire plus attention, c'est compliqué</p>
+</li>
+</ol>
+<h3>Réacteur et Simulation<a id="sec-2-2-7" name="sec-2-2-7"></a></h3>
+<p>Le réacteur contient toutes les molécules, et gère les rencontres 
+et la simulation. 
+Le réacteur doit accomplir deux objectifs concurrents :
+-   être « réaliste »
+-   être efficace</p>
+<ol>
+<li>
+<p>TODO Molécules et réseaux de pétri</p>
+<p>Dans le réacteur se trouvent un certain nombre de molécules 
+différentes, chacune ayant une quantité propre.</p>
+<p>Afin d'être efficace, un unique réseau de pétri est créé
+par type de molécule (pour plus de réalisme, on pourrait 
+aller vers un nombre logarithmique).</p>
+<p>Deux choix :
+-   calculer la quantité de réactions entre deux molécules
+    en fonction de la quantité de chacune des molécules
+-   creuser du coté de 
+    Generalized Stochastic simulation algorithm for Artificial Chemistry,
+    H. Soula</p>
+</li>
+<li>
+<p>TODO Rencontres</p>
+<p>Tant qu'on n'étends pas les réseaux de pétri, c'est assez simple.
+Mais ensuite, il y a plusieurs choses à gérer:
+-   Rencontre entre deux réseaux étendus :
+    le problème, c'est qu'il peut y avoir beaucoup (BEAUCOUP) de bind
+    possibles. 
+    Pour régler ça, on pourrait faire en sorte de ne faire de réactions
+    qu'entre deux réseaux de pétri; donc quand deux réseaux étendus
+    se recontrent, on détermine le lieu (réseau de pétri pour chacun)
+    de leur rencontre.</p>
+<ul>
+<li>Rencontres à l'intérieur d'un réseau étendu.
+    Il faut faire en sorte :<ul>
+<li>que deux pnets très proches puissent réagir</li>
+<li>que deux pnets lointains puissent réagir</li>
+<li>sinon, pas de réaction</li>
+</ul>
+</li>
+</ul>
+<p>Ou alors, dans le contexte du papier de Soula, 
+donner les bons taux de réaction.</p>
+</li>
+</ol>
+<h2>Réflexions, choix et ouvertures<a id="sec-2-3" name="sec-2-3"></a></h2>
+<p>Cette partie sera un peu fouillis</p>
+<h3>Arguments pour le réseau de pétri<a id="sec-2-3-1" name="sec-2-3-1"></a></h3>
+<p>Les réseaux de pétri forment donc le modèle de calcul utilisé par
+les bactéries pour fonctionner, interagir et se dupliquer.</p>
+<p>Nous allons ici développer quelques arguments pour soutenir 
+ce choix.</p>
+<ul>
+<li>
+<p>Le réseau de pétri est formé de manière non linéaire à partir d'une 
+    liste d'acides. Cela devrait le rendre peu vulnérable à des 
+    modifications mineurs de la liste d'acides formant la protéine.</p>
+<p>Reste cependant le fait que les protéines sont formées à partir 
+d'une liste d'atomes, qui est elle sensible à des variations locales.</p>
+</li>
+<li>
+<p>Du fait de sa forme de graphe, le réseau de pétri peut être associé
+    à une certaine spatialité. Par exemple, une protéine connectée à
+    la membrane peut avoir une partie à l'intérieur, et une autre partie
+    à l'extérieur de la membrane.</p>
+</li>
+<li>
+<p>On peut sans trop de difficultés connecter des réseaux de pétri 
+    entre eux (bind/catch), permettant d'étendre leur fonctionnalités,
+    ainsi que de créer des <strong>membranes</strong>.</p>
+</li>
+</ul>
+<h3>Forme des molécules<a id="sec-2-3-2" name="sec-2-3-2"></a></h3>
+<ol>
+<li>
+<p>Molécule linéaire</p>
+<p>Le modèle le plus simple pour une molécule est simplement d'avoir
+une molécule linéaire (une liste).
+Des suites d'atomes sont alors interprétées directement comme 
+des acides, les atomes suivants pouvant donner de l'information 
+supplémentaire, etc.</p>
+<p>Mais le problème, </p>
+</li>
+<li>
+<p>Molécule sous forme de graphe</p>
+<p>Ce qui serait joli, ce serait d'avoir des connecteurs (à deux ou 
+trois branches), et des morceaux d'information, mais plus 
+compliqué à manipuler; il pourrait être intéressant de comparer 
+avec une structure linéaire pour les molécules.</p>
+</li>
+</ol>
+<h3>Membrane<a id="sec-2-3-3" name="sec-2-3-3"></a></h3>
+<p>La membrane est une partie essentielle d'une bactérie, puisqu'elle 
+la définit en établissant une barrière avec le monde extérieur.</p>
+<p>Pour l'implémentation d'une membrane, les fonctionnalités désirées 
+sont :
+-   Permettre à la bactérie de réguler les entrées/sorties de</p>
+<p>molécules
+-   Établir une barrière <em>difficile</em> à franchir pour les molécules
+    extérieures non désirées.
+-   Avoir un taille nécéssaire en fonction de la quantité de</p>
+<p>molécules présentes, sous risque d'effets néfastes.</p>
+<p>Idée : Implémenter dans les cellules deux bornes qui doivent 
+être reliées par un certain nombre de protéines.
+(il faut que les protéines puissent se lier entre elles avec 
+des catch/bind)</p>
+<ol>
+<li>
+<p>Membranes avec des bind</p>
+<p>Une extension Bind d'une place permet à deux réseaux de pétri 
+de se lier. Le design de cette extension est fait de sorte 
+à pouvoir facilement implémenter des membranes</p>
+<p>Une Bind extension possède simplement une string, et se colle
+à une string symétrique :
+-   reversed ? -&gt; le plus simple
+-   symétrie des atomes ? -&gt; pourquoi, pourquoi pas ?</p>
+<p>Condition pour Binder : Les places sont vides
+Après le Bind, des token sont crées. -&gt; cela permet d'effectuer
+une action après le  bind.</p>
+<p>Condition pour DéBinder : deux token reviennent, puis sont consommés.</p>
+<p>Deux réseaux de pétri bindés sont donc liés physiquement dans l'espace.</p>
+<p>Se présentent alors plusieurs choix :
+-   un Bind FORT : les réseaux de pétri sont fusionnés à la Place
+    de Bind, ce qui permet de créer de nouveaux réseaux plus 
+    compliqués
+    -&gt; c'est assez compliqué à gérer, deux places sont fusionnées,
+    il faut aussi pouvoir débinder, bref garder beaucoup en mémoire
+    et avoir des structures de données compliquées
+-   un Bind FAIBLE : les réseaux de Pétri sont indépendants
+    -&gt; c'est assez simple, et ça peut suffire pour les membranes</p>
+<p>Dans tous les cas, il faut créer un graphe sur-jacent qui va garder 
+en mémoire la structure de la molécule, pour pouvoir travailler sur 
+la structure (détecter les cycles, la distance entre deux pnet, etc).</p>
+</li>
+</ol>
+<h3>Ribosome<a id="sec-2-3-4" name="sec-2-3-4"></a></h3>
+<p>Un ribosome est une protéine qui lit un code génétique (ADN) et 
+construit des protéines en fonction de l'information contenue dans 
+l'ADN.</p>
+<p>Donc pour implémenter un ribosome, il faut être capable de lire de
+l'information contenue dans une molécule, de l'interpréter pour 
+recoller les bons acides au bon endroit sur une molécule en train
+d'être construite.</p>
+<ol>
+<li>
+<p>Implémentation possible d'un ribosome :</p>
+<p>La molécule en train d'être construite se trouve à mol_start_place, 
+et le brin d'ADN lu se trouve à DNA_start_place.</p>
+<p>Les arcs entrants de transition qui partent de DNA_start_place sont 
+filtrants (fonctionnalité qui reste à implémenter), donc seule une 
+des filter_transition_i peut être lancéé (celle qui correspond à 
+l'information lue sur le brin d'ADN). </p>
+<p>Lorsqu'une de ces transitions est lancée, la molécule se retrouve à 
+mol_temp_place_i, d'où elle va être lancée vers bind_transition_i, 
+qui lui accolera l'acide correspondant, et enfin rejoindre 
+mol_end_place (commun à tous les chemins).</p>
+<p>Il suffit ensuite de faire revenir la molécule et l'ADN à leur 
+place de départ (en ayant fait bouger la tête de lecture sur l'ADN) 
+pour recommencer l'opération avec le morceau d'information suivant.</p>
+<p>Voir le résultat du code suivant pour le graphe du réseau de pétri
+décrit, où les chemins que peut suivre la molécule sont en rouge, 
+les chemins que peut suivre le brin d'ADN est en bleu, et les acides
+en vert.</p>
+<p><img alt="img" src="/images/ribosome.png" /></p>
+<p>En détaillant un chemin en particulier, voici ce que cela donne : </p>
+<p><img alt="img" src="/images/ribosome_detailed.png" /></p>
+<p>A more compact universal ribosome, working in reverse.</p>
+<pre><code>[["Place"],
+["InputArc","AA",["Regular"]],
+["OutputArc","AA",["Bind"]],
+["InputArc","AB",["Regular"]],
+["OutputArc","AB",["Bind"]],
+["InputArc","AC",["Regular"]],
+["OutputArc","AC",["Bind"]],
+["InputArc","AD",["Regular"]],
+["OutputArc","AD",["Bind"]],
+["InputArc","AF",["Regular"]],
+["OutputArc","AF",["Bind"]],
+["InputArc","AAA",["Regular"]],
+["OutputArc","BBB",["Regular"]],
+["Place"],
+["InputArc","AA",["Regular"]],
+["Extension",["Grab","FAF"]],
+["Place"],
+["InputArc","AB",["Regular"]],
+["Extension",["Grab","FBF"]],
+["Place"],
+["InputArc","AC",["Regular"]],
+["Extension",["Grab","FCF"]],
+["Place"],
+["InputArc","AD",["Regular"]],
+["Extension",["Grab","FDF"]],
+["Place"],
+["InputArc","AF",["Regular"]],
+["Extension",["Grab","FFF"]],
+["Place"],
+["InputArc","AA",["Filter","A"]],
+["OutputArc","AA",["Move",true]],
+["InputArc","AB",["Filter","B"]],
+["OutputArc","AB",["Move",true]],
+["InputArc","AC",["Filter","C"]],
+["OutputArc","AC",["Move",true]],
+["InputArc","AD",["Filter","D"]],
+["OutputArc","AD",["Move",true]],
+["InputArc","AF",["Filter","F"]],
+["OutputArc","AF",["Move",true]],
+["InputArc","AAA",["Filter_empty"]],
+["OutputArc","BBB",["Regular"]],
+["Place"],
+["OutputArc","AAA",["Regular"]],
+["Extension",["Release"]],
+["Place"],
+["OutputArc","AAA",["Regular"]],
+["Extension",["Release"]],
+["Place"],
+["InputArc","BBB",["Regular"]],
+["OutputArc","CCC",["Regular"]],
+["Place"],
+["InputArc","BBB",["Regular"]],
+["Extension",["Grab","DFDFFF"]],
+["Place"],
+["InputArc","CCC",["Split"]],
+["OutputArc","CCC",["Regular"]],
+["Extension",["Init_with_token"]]]
+</code></pre>
+</li>
+<li>
+<p>Modèle 1</p>
+</li>
+</ol>
+<h3>Bacterie<a id="sec-2-3-5" name="sec-2-3-5"></a></h3>
+<p>Une bacterie contient des molécules. Pour chaque molecule, on 
+connait le nombre présent, et on simule une unique forme protéinée 
+pour toutes les molécules du même type.</p>
+<ol>
+<li>
+<p>Note : on pourrait imaginer d'autres formes d'interprétation :</p>
+<ul>
+<li>fonction (par ex log) du nombre de mols<ul>
+<li>ou autre.</li>
+</ul>
+</li>
+</ul>
+<p>La simulation est alors découpée en (pour l'instant) deux étapes :
+-   Simulation des protéines
+-   Résolution des catch/bind</p>
+</li>
+<li>
+<p>Simulation des protéines</p>
+<p>La protéine associée à chaque molécule lance un certain nombre
+de transitions de son réseau de pétri. Pour choisir ce nombre,
+on pourrait :
+-   le faire correspondre au nombre de mol présentes</p>
+<p>(ou une fonction de celui-ci
+-   Prendre le pgcd de tous les nombres de molécules</p>
+<p>(ou même diviser par le plus petit et arrondir)
+pour que le coût de simulation ne dépende pas du 
+nombre de molécules).</p>
+</li>
+<li>
+<p>Résolution des catch/bind</p>
+<p>On calcule combien de bind sont effectués.</p>
+<p>Pour le déroulé du bind en lui même, on peut aussi avoir
+plusieurs choix :
+-   Le bind crée un token
+-   Le bind peut seulement se dérouler si un token vide</p>
+<p>se trouve sur la place avec le catcher
+-   Si un token occupé par une molécule se trouve sur la</p>
+<p>place, la molécule est remplacée, ou alors une des deux 
+au hasard.</p>
+<ol>
+<li>
+<p>Note : du coup pour le simulateur</p>
+<p>On calcule les catch/bind, puis
+on attribue à chaque molécule un certain
+nb de transitions. On peut alors soit
+observer les transitions de chaque molécule,
+soit tout exécuter, etc.</p>
+</li>
+</ol>
+</li>
+</ol>
+<h3>Le monde<a id="sec-2-3-6" name="sec-2-3-6"></a></h3>
+<p>Quelques idées : 
+-   les bactéries peuvent se duppliquer sans restriction physique.
+    À chaque nouvelle bactérie créée on attribue une certaines
+    distribution des différentes ressources (acides aminés ?)
+-   Matrice (tridimensionnelle), avec des « commandes » pour 
+    interagir avec les cellules voisines, se déplacer,
+    communiquer, etc..
+-   Hôtes pour simuler un comportement multicellulaire : 
+    l'hôte a différents emplacements pour cellules, où 
+    se trouvent  des recepteurs particuliers, qui permettent
+    à l'hôte d'effectuer des actions dans un autre monde physique.
+-   Graphe (lazy ?) ou les nœuds contiennent pour chaque arc une 
+    interface permettant de simuler une membrane. On peut imaginer
+    différentes interfaces, avec différents niveaux de « difficulté ».</p>
+<h3>Énergie<a id="sec-2-3-7" name="sec-2-3-7"></a></h3>
+<p>Les tokens peuvent être un bon moyen de gérer les échanges 
+énergétiques. Le mieux serait sans-doute de faire comme en vrai, 
+c'est à dire qu'établir un liaison coûte de l'énergie, qui est 
+libérée lorsque la liaison est rompue. Ça implique de modifier un 
+peu le condition de grab et de catch/bind, mais ça devrait se faire 
+pas trop difficilement.
+On peut aussi penser à faire des transferts d'énergie entre une 
+protéine et la molécule grabée.</p>
+<h3>Dans un futur lointain<a id="sec-2-3-8" name="sec-2-3-8"></a></h3>
+<p>Pour que les bactéries puissent avoir un comportement efficace, il 
+faudrait qu'il y ait de l'information ambiante, qui représente 
+plusieurs aspects du monde alentour, que les bactéries puissent 
+mesurer</p>
+<p>Implémenter un système similaire à tierra, où les bactéries qui 
+font des actions « interdites » reçoivent un malus, et finissent
+par mourir ?
+(par exemple : problème de transition, problème lors du décalage
+d'une molécule à l'intérieur d'</p></div>
+      </div>
+    </div>
+
+    
+    <div class="pure-u-1">
+      <div id="footer">
+        Built with <a href="http://bitbucket.org/obensonne/poole">Poole</a>
+        &middot;
+        Licensed as <a href="http://creativecommons.org/licenses/by-sa/3.0">CC-SA</a>
+        &middot;
+        <a href="http://validator.w3.org/check?uri=referer">Validate me</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>milim - ouvertures.md</title>
+    <meta name="description" content="a poole site" />
+    <meta name="keywords" content="poole" />
+    
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/sakura.css" />
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+</head>
+<body>
+  <div class="pure-g">
+    
+    <div class="pure-u-1-5">
+      
+      <div class="pure-menu" id="nav-menu">
+	<ul class="pure-menu-list">
+<li class="pure-menu-item"><a href="/index.html">HOME</a><span><</span></li>
+<li class="pure-menu-item"><a href="/achem.html">ACHEM</a><span><</span></li>
+<li class="pure-menu-item"><a href="/blog.html">BLOG</a><span><</span></li>
+	</ul>
+      </div>
+
+    </div>
+
+    
+    <div class="pure-u-4-5">
+      <div id="main-block">
+      
+	<div id="header">
+	  <div><h1>ouvertures.md</h1></div>
+	  <div><h1>milim</h1></div> 
+	</div>
+      
+      <div id="content"><p>title: ACHEM
+menu-position: 3
+type:subpage
+subtitle:ouvertures
+&#x2014;</p>
+<p>Cette partie sera un peu fouillis</p>
+<p>## Arguments pour le réseau de pétri</p>
+<p>Les réseaux de pétri forment donc le modèle de calcul utilisé par
+les bactéries pour fonctionner, interagir et se dupliquer.</p>
+<p>Nous allons ici développer quelques arguments pour soutenir 
+ce choix.</p>
+<ul>
+<li>
+<p>Le réseau de pétri est formé de manière non linéaire à partir d'une 
+    liste d'acides. Cela devrait le rendre peu vulnérable à des 
+    modifications mineurs de la liste d'acides formant la protéine.</p>
+<p>Reste cependant le fait que les protéines sont formées à partir 
+d'une liste d'atomes, qui est elle sensible à des variations locales.</p>
+</li>
+<li>
+<p>Du fait de sa forme de graphe, le réseau de pétri peut être associé
+    à une certaine spatialité. Par exemple, une protéine connectée à
+    la membrane peut avoir une partie à l'intérieur, et une autre partie
+    à l'extérieur de la membrane.</p>
+</li>
+<li>
+<p>On peut sans trop de difficultés connecter des réseaux de pétri 
+    entre eux (bind/catch), permettant d'étendre leur fonctionnalités,
+    ainsi que de créer des <strong><em>*membranes</em></strong>*.</p>
+</li>
+</ul>
+<p>## Forme des molécules</p>
+<p>### Molécule linéaire</p>
+<p>Le modèle le plus simple pour une molécule est simplement d'avoir
+une molécule linéaire (une liste).
+Des suites d'atomes sont alors interprétées directement comme 
+des acides, les atomes suivants pouvant donner de l'information 
+supplémentaire, etc.</p>
+<p>Mais le problème, </p>
+<p>### Molécule sous forme de graphe</p>
+<p>Ce qui serait joli, ce serait d'avoir des connecteurs (à deux ou 
+trois branches), et des morceaux d'information, mais plus 
+compliqué à manipuler; il pourrait être intéressant de comparer 
+avec une structure linéaire pour les molécules.</p>
+<p>## Membrane</p>
+<p>La membrane est une partie essentielle d'une bactérie, puisqu'elle 
+la définit en établissant une barrière avec le monde extérieur.</p>
+<p>Pour l'implémentation d'une membrane, les fonctionnalités désirées 
+sont :
+-   Permettre à la bactérie de réguler les entrées/sorties de</p>
+<p>molécules
+-   Établir une barrière <strong>difficile</strong> à franchir pour les molécules
+    extérieures non désirées.
+-   Avoir un taille nécéssaire en fonction de la quantité de</p>
+<p>molécules présentes, sous risque d'effets néfastes.</p>
+<p>Idée : Implémenter dans les cellules deux bornes qui doivent 
+être reliées par un certain nombre de protéines.
+(il faut que les protéines puissent se lier entre elles avec 
+des catch/bind)</p>
+<p>### Membranes avec des bind</p>
+<p>Une extension Bind d'une place permet à deux réseaux de pétri 
+de se lier. Le design de cette extension est fait de sorte 
+à pouvoir facilement implémenter des membranes</p>
+<p>Une Bind extension possède simplement une string, et se colle
+à une string symétrique :
+-   reversed ? -&gt; le plus simple
+-   symétrie des atomes ? -&gt; pourquoi, pourquoi pas ?</p>
+<p>Condition pour Binder : Les places sont vides
+Après le Bind, des token sont crées. -&gt; cela permet d'effectuer
+une action après le  bind.</p>
+<p>Condition pour DéBinder : deux token reviennent, puis sont consommés.</p>
+<p>Deux réseaux de pétri bindés sont donc liés physiquement dans l'espace.</p>
+<p>Se présentent alors plusieurs choix :
+-   un Bind FORT : les réseaux de pétri sont fusionnés à la Place
+    de Bind, ce qui permet de créer de nouveaux réseaux plus 
+    compliqués
+    -&gt; c'est assez compliqué à gérer, deux places sont fusionnées,
+    il faut aussi pouvoir débinder, bref garder beaucoup en mémoire
+    et avoir des structures de données compliquées
+-   un Bind FAIBLE : les réseaux de Pétri sont indépendants
+    -&gt; c'est assez simple, et ça peut suffire pour les membranes</p>
+<p>Dans tous les cas, il faut créer un graphe sur-jacent qui va garder 
+en mémoire la structure de la molécule, pour pouvoir travailler sur 
+la structure (détecter les cycles, la distance entre deux pnet, etc).</p>
+<p>## Ribosome</p>
+<p>Un ribosome est une protéine qui lit un code génétique (ADN) et 
+construit des protéines en fonction de l'information contenue dans 
+l'ADN.</p>
+<p>Donc pour implémenter un ribosome, il faut être capable de lire de
+l'information contenue dans une molécule, de l'interpréter pour 
+recoller les bons acides au bon endroit sur une molécule en train
+d'être construite.</p>
+<ol>
+<li>
+<p>Implémentation possible d'un ribosome :</p>
+<p>La molécule en train d'être construite se trouve à mol\<sub>start\</sub><sub>place</sub>, 
+et le brin d'ADN lu se trouve à DNA\<sub>start\</sub><sub>place</sub>.</p>
+<p>Les arcs entrants de transition qui partent de DNA\<sub>start\</sub><sub>place</sub> sont 
+filtrants (fonctionnalité qui reste à implémenter), donc seule une 
+des filter\<sub>transition\</sub><sub>i</sub> peut être lancéé (celle qui correspond à 
+l'information lue sur le brin d'ADN). </p>
+<p>Lorsqu'une de ces transitions est lancée, la molécule se retrouve à 
+mol\<sub>temp\</sub><sub>place\</sub><sub>i</sub>, d'où elle va être lancée vers bind\<sub>transition\</sub><sub>i</sub>, 
+qui lui accolera l'acide correspondant, et enfin rejoindre 
+mol\<sub>end\</sub><sub>place</sub> (commun à tous les chemins).</p>
+<p>Il suffit ensuite de faire revenir la molécule et l'ADN à leur 
+place de départ (en ayant fait bouger la tête de lecture sur l'ADN) 
+pour recommencer l'opération avec le morceau d'information suivant.</p>
+<p>Voir le résultat du code suivant pour le graphe du réseau de pétri
+décrit, où les chemins que peut suivre la molécule sont en rouge, 
+les chemins que peut suivre le brin d'ADN est en bleu, et les acides
+en vert.</p>
+<p>\<img alt="img" src="/images/ribosome.png" /></p>
+<p>En détaillant un chemin en particulier, voici ce que cela donne : </p>
+<p>\<img alt="img" src="/images/ribosome&lt;sub&gt;detailed&lt;/sub&gt;.png" /></p>
+<p>A more compact universal ribosome, working in reverse.</p>
+<p>[["Place"],
+["InputArc","AA",["Regular"]],
+["OutputArc","AA",["Bind"]],
+["InputArc","AB",["Regular"]],
+["OutputArc","AB",["Bind"]],
+["InputArc","AC",["Regular"]],
+["OutputArc","AC",["Bind"]],
+["InputArc","AD",["Regular"]],
+["OutputArc","AD",["Bind"]],
+["InputArc","AF",["Regular"]],
+["OutputArc","AF",["Bind"]],
+["InputArc","AAA",["Regular"]],
+["OutputArc","BBB",["Regular"]],
+["Place"],
+["InputArc","AA",["Regular"]],
+["Extension",["Grab","FAF"]],
+["Place"],
+["InputArc","AB",["Regular"]],
+["Extension",["Grab","FBF"]],
+["Place"],
+["InputArc","AC",["Regular"]],
+["Extension",["Grab","FCF"]],
+["Place"],
+["InputArc","AD",["Regular"]],
+["Extension",["Grab","FDF"]],
+["Place"],
+["InputArc","AF",["Regular"]],
+["Extension",["Grab","FFF"]],
+["Place"],
+["InputArc","AA",["Filter","A"]],
+["OutputArc","AA",["Move",true]],
+["InputArc","AB",["Filter","B"]],
+["OutputArc","AB",["Move",true]],
+["InputArc","AC",["Filter","C"]],
+["OutputArc","AC",["Move",true]],
+["InputArc","AD",["Filter","D"]],
+["OutputArc","AD",["Move",true]],
+["InputArc","AF",["Filter","F"]],
+["OutputArc","AF",["Move",true]],
+["InputArc","AAA",["Filter<sub>empty</sub>"]],
+["OutputArc","BBB",["Regular"]],
+["Place"],
+["OutputArc","AAA",["Regular"]],
+["Extension",["Release"]],
+["Place"],
+["OutputArc","AAA",["Regular"]],
+["Extension",["Release"]],
+["Place"],
+["InputArc","BBB",["Regular"]],
+["OutputArc","CCC",["Regular"]],
+["Place"],
+["InputArc","BBB",["Regular"]],
+["Extension",["Grab","DFDFFF"]],
+["Place"],
+["InputArc","CCC",["Split"]],
+["OutputArc","CCC",["Regular"]],
+["Extension",["Init<sub>with</sub><sub>token</sub>"]]]</p>
+</li>
+</ol>
+<p>## Bacterie</p>
+<p>Une bacterie contient des molécules. Pour chaque molecule, on 
+connait le nombre présent, et on simule une unique forme protéinée 
+pour toutes les molécules du même type.</p>
+<ol>
+<li>
+<p>Note : on pourrait imaginer d'autres formes d'interprétation :</p>
+<ul>
+<li>fonction (par ex log) du nombre de mols<ul>
+<li>ou autre.</li>
+</ul>
+</li>
+</ul>
+<p>La simulation est alors découpée en (pour l'instant) deux étapes :</p>
+<ul>
+<li>Simulation des protéines</li>
+<li>Résolution des catch/bind</li>
+</ul>
+</li>
+</ol>
+<p>### Simulation des protéines</p>
+<p>La protéine associée à chaque molécule lance un certain nombre
+de transitions de son réseau de pétri. Pour choisir ce nombre,
+on pourrait :
+-   le faire correspondre au nombre de mol présentes</p>
+<p>(ou une fonction de celui-ci
+-   Prendre le pgcd de tous les nombres de molécules</p>
+<p>(ou même diviser par le plus petit et arrondir)
+pour que le coût de simulation ne dépende pas du 
+nombre de molécules).</p>
+<p>### Résolution des catch/bind</p>
+<p>On calcule combien de bind sont effectués.</p>
+<p>Pour le déroulé du bind en lui même, on peut aussi avoir
+plusieurs choix :
+-   Le bind crée un token
+-   Le bind peut seulement se dérouler si un token vide</p>
+<p>se trouve sur la place avec le catcher
+-   Si un token occupé par une molécule se trouve sur la</p>
+<p>place, la molécule est remplacée, ou alors une des deux 
+au hasard.</p>
+<ol>
+<li>
+<p>Note : du coup pour le simulateur</p>
+<p>On calcule les catch/bind, puis
+on attribue à chaque molécule un certain
+nb de transitions. On peut alors soit
+observer les transitions de chaque molécule,
+soit tout exécuter, etc.</p>
+</li>
+</ol>
+<p>## Le monde</p>
+<p>Quelques idées : 
+-   les bactéries peuvent se duppliquer sans restriction physique.
+    À chaque nouvelle bactérie créée on attribue une certaines
+    distribution des différentes ressources (acides aminés ?)
+-   Matrice (tridimensionnelle), avec des « commandes » pour 
+    interagir avec les cellules voisines, se déplacer,
+    communiquer, etc..
+-   Hôtes pour simuler un comportement multicellulaire : 
+    l'hôte a différents emplacements pour cellules, où 
+    se trouvent  des recepteurs particuliers, qui permettent
+    à l'hôte d'effectuer des actions dans un autre monde physique.
+-   Graphe (lazy ?) ou les nœuds contiennent pour chaque arc une 
+    interface permettant de simuler une membrane. On peut imaginer
+    différentes interfaces, avec différents niveaux de « difficulté ».</p>
+<p>## Énergie</p>
+<p>Les tokens peuvent être un bon moyen de gérer les échanges 
+énergétiques. Le mieux serait sans-doute de faire comme en vrai, 
+c'est à dire qu'établir un liaison coûte de l'énergie, qui est 
+libérée lorsque la liaison est rompue. Ça implique de modifier un 
+peu le condition de grab et de catch/bind, mais ça devrait se faire 
+pas trop difficilement.
+On peut aussi penser à faire des transferts d'énergie entre une 
+protéine et la molécule grabée.</p>
+<p>## Dans un futur lointain</p>
+<p>Pour que les bactéries puissent avoir un comportement efficace, il 
+faudrait qu'il y ait de l'information ambiante, qui représente 
+plusieurs aspects du monde alentour, que les bactéries puissent 
+mesurer</p>
+<p>Implémenter un système similaire à tierra, où les bactéries qui 
+font des actions « interdites » reçoivent un malus, et finissent
+par mourir ?
+(par exemple : problème de transition, problème lors du décalage
+d'une molécule à l'intérieur d'</p></div>
+      </div>
+    </div>
+
+    
+    <div class="pure-u-1">
+      <div id="footer">
+        Built with <a href="http://bitbucket.org/obensonne/poole">Poole</a>
+        &middot;
+        Licensed as <a href="http://creativecommons.org/licenses/by-sa/3.0">CC-SA</a>
+        &middot;
+        <a href="http://validator.w3.org/check?uri=referer">Validate me</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

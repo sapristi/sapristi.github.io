@@ -16,5 +16,7 @@ cd ..
 cp -r gen/output/* .
 
 git add -u
+git add *.html
+git add achem/*.html
 git commit -m "website"
 git push
