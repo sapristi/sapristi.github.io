@@ -142,7 +142,7 @@ ce choix.
     décrit, où les chemins que peut suivre la molécule sont en rouge, 
     les chemins que peut suivre le brin d'ADN est en bleu, et les acides
     en vert.
-    
+    #+NAME: ribosomex
     #+BEGIN_SRC dot :file images/ribosome.png :cmdline -Kdot -Tpng
   digraph G {
           mol_start_place[color = "red"]
@@ -195,7 +195,7 @@ ce choix.
 #+END_SRC
  
    #+RESULTS:
-   [[file:ribosome.png]]
+   [[file:images/ribosome.png]]
 
    En détaillant un chemin en particulier, voici ce que cela donne : 
  
@@ -225,8 +225,9 @@ ce choix.
       }
 #+END_SRC
 
-    #+RESULTS:
-    [[file:ribosome_detailed.png]]
+#+CALL: ribosome
+#+RESULTS:
+   [[file:ribosome_detailed.png]]
 
 
 A more compact universal ribosome, working in reverse.
