@@ -4,7 +4,7 @@ cd gen/input/achem
 
 for f in $(ls | grep  .org$)
 do
-    emacs $f --batch -f org-md-export-to-markdown
+    emacs $f --load ~/.emacs --batch -f org-md-export-to-markdown
     echo "exported " + $f + " as markdown" 
 done
 cd ../..
