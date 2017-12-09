@@ -6,6 +6,7 @@ title: ACHEM
 menu-position: 3
 type:subpage
 subtitle:ouvertures
+path:achem
 @@html:---@@
 
 
@@ -225,7 +226,6 @@ ce choix.
       }
 #+END_SRC
 
-#+CALL: ribosome
 #+RESULTS:
    [[file:ribosome_detailed.png]]
 
