@@ -171,11 +171,11 @@ ce choix.
           [color = blue];
 
           
-          transition_A -> DNA_place
+          transition_B -> DNA_place
           [color = blue];
 
           atom_graber_A -> transition_A [color = "green"];
-          atom_graber_B_ -> transition_B [color = "green"];
+          atom_graber_B -> transition_B [color = "green"];
           
   }
 #+END_SRC
