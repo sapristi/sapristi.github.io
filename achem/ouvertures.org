@@ -143,8 +143,8 @@ ce choix.
     décrit, où les chemins que peut suivre la molécule sont en rouge, 
     les chemins que peut suivre le brin d'ADN est en bleu, et les acides
     en vert.
-    #+NAME: ribosomex
-    #+BEGIN_SRC dot :file images/ribosome.png :cmdline -Kdot -Tpng
+
+#+BEGIN_SRC dot :file images/ribosome.png :cmdline -Kdot -Tpng
   digraph G {
           mol_start_place[color = "red"]
           DNA_start_place[color = "blue"]
@@ -201,7 +201,7 @@ ce choix.
    En détaillant un chemin en particulier, voici ce que cela donne : 
  
 
-    #+BEGIN_SRC dot :file images/ribosome_detailed.png :cmdline -Kdot -Tpng
+#+BEGIN_SRC dot :file images/ribosome_detailed.png :cmdline -Kdot -Tpng
       digraph G {
               mol_start_place[color = "red"]
               DNA_start_place[color = "blue"]

@@ -1,5 +1,8 @@
 #/bin/bash
 
+
+
+
 cd gen/input/achem
 
 for f in $(ls | grep  .org$)
@@ -15,8 +18,14 @@ echo "built website"
 cd ..
 cp -r gen/output/* .
 
+
+
 git add -u
 git add *.html
 git add achem/*.html
 git commit -m "website"
-git push
+
+if $1 == "push"
+then 
+    git push
+fi
