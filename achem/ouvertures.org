@@ -185,8 +185,8 @@ ce choix.
   }
 #+END_SRC
  
-   #+RESULTS:
-   [[file:images/ribosome.png]]
+#+RESULTS:
+    [[file:images/ribosome.png]]
 
 
 ** Bacterie
