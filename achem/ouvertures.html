@@ -22,7 +22,7 @@
 <li class="pure-menu-item selected"><a href="/achem.html">ACHEM</a><span><</span></li>
 <ul class='pure-menu-list'>
 <li class="pure-menu-item subitem"><a href="/achem/Introduction.html">introduction</a><span><</span></li>
-<li class="pure-menu-item subitem"><a href="/achem/Implementation.html">implémentation</a><span><</span></li>
+<li class="pure-menu-item subitem"><a href="/achem/Implementation.html">implementation</a><span><</span></li>
 <li class="pure-menu-item subitem selected"><a href="/achem/ouvertures.html">ouvertures</a><span><</span></li>
 </ul>
 <li class="pure-menu-item"><a href="/blog.html">BLOG</a><span><</span></li>
@@ -148,9 +148,78 @@ pour recommencer l'opération avec le morceau d'information suivant.</p>
 décrit, où les chemins que peut suivre la molécule sont en rouge, 
 les chemins que peut suivre le brin d'ADN est en bleu, et les acides
 en vert.</p>
-<p><img alt="img" src="/images/ribosome.png" /></p>
+<pre><code>digraph G {
+        mol_start_place[color = "red"]
+        DNA_start_place[color = "blue"]
+
+        filter_transition_0[shape = "rectangle"]
+        mol_temp_place_0[color = "red"]
+        bind_transition_0[shape = "rectangle"]
+
+        filter_transition_1[shape = "rectangle"]
+        mol_temp_place_1[color = "red"]
+        bind_transition_1[shape = "rectangle"]
+
+        filter_transition_n[shape = "rectangle", style = "dotted"]
+        mol_temp_place_n[color = "red", style = "dotted"]
+        bind_transition_n[shape = "rectangle", style = "dotted"]
+
+        DNA_end_place[color = "blue"]
+        mol_end_place[color = "red"]
+
+        acid_holder_0[color = "green"]
+        acid_holder_1[color = "green"]
+        acid_holder_n[color = "green"]
+
+        mol_start_place -&gt; filter_transition_0 -&gt;
+        mol_temp_place_0  -&gt; bind_transition_0 -&gt;
+        mol_end_place [color =red];
+
+        mol_start_place -&gt; filter_transition_1 -&gt;
+        mol_temp_place_1  -&gt; bind_transition_1 -&gt;
+        mol_end_place [color = "red"];
+
+        mol_start_place -&gt; filter_transition_n -&gt;
+        mol_temp_place_n  -&gt; bind_transition_n -&gt;
+        mol_end_place [style = "dotted", color = "red"];
+
+        DNA_start_place -&gt; filter_transition_0 -&gt; DNA_end_place
+        [color = "blue"];
+        DNA_start_place -&gt; filter_transition_1 -&gt; DNA_end_place
+        [color = "blue"];
+        DNA_start_place -&gt; filter_transition_n -&gt;
+        DNA_end_place [style = "dotted", color = "blue"];
+
+        acid_holder_0 -&gt; bind_transition_0 [color = "green"];
+        acid_holder_1 -&gt; bind_transition_1 [color = "green"];
+        acid_holder_n -&gt; bind_transition_n [color = "green", style = "dotted"];
+
+}
+</code></pre>
 <p>En détaillant un chemin en particulier, voici ce que cela donne : </p>
-<p><img alt="img" src="/images/ribosome_detailed.png" /></p>
+<pre><code>digraph G {
+        mol_start_place[color = "red"]
+        DNA_start_place[color = "blue"]
+
+        filter_transition[shape = "rectangle"]
+        mol_temp_place[color = "red"]
+        bind_transition[shape = "rectangle"]
+
+        DNA_end_place[color = "blue"]
+        mol_end_place[color = "red"]
+
+        acid_holder[color = "green"]
+
+        mol_start_place -&gt; filter_transition -&gt;
+        mol_temp_place  -&gt; bind_transition -&gt;
+        mol_end_place [color =red];
+
+        DNA_start_place -&gt; filter_transition -&gt; DNA_end_place
+        [color = "blue"];
+        acid_holder -&gt; bind_transition [color = "green"];
+
+}
+</code></pre>
 <p>A more compact universal ribosome, working in reverse.</p>
 <pre><code>[["Place"],
 ["InputArc","AA",["Regular"]],
