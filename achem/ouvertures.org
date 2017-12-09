@@ -179,14 +179,12 @@ ce choix.
 
           atom_graber_A -> transition_A [color = "green"];
           atom_graber_B_ -> transition_B [color = "green"];
-
-"dotted"];
           
   }
 #+END_SRC
  
 #+RESULTS:
-    [[file:images/ribosome.png]]
+[[file:images/ribosome.png]]
 
 
 ** Bacterie
