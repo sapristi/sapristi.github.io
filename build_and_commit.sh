@@ -25,7 +25,7 @@ git add *.html
 git add achem/*.html
 git commit -m "website"
 
-if [$1 == "push"]
+if [$1 = "push"]
 then 
     git push
 fi
