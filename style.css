@@ -6,11 +6,12 @@
 }
 #header h1 {
     margin:5px;
-    color:lightblue;
+    color:darkcyan;
 }
 
 body {
     max-width:90%;
+    text-align:justify;
 }
 
 #main-block {
@@ -35,8 +36,29 @@ body {
 }
 
 #nav-menu li {
-    margin:30px 0;
+    margin-top:30px;
     color:black;
+}
+
+#nav-menu li span{
+    font-weight:bolder;
+    color:#f9f9f9;
+}
+#nav-menu li.selected span{
+    color:darkcyan;
+}
+#nav-menu li.subitem{
+    margin:10px 0;
+    color:black;
+    font-size: 90%;
+    padding-right: 10px;
+}
+#nav-menu li.subitem span{
+    font-weight:bolder;
+    color:#f9f9f9;
+}
+#nav-menu li.subitem.selected span{
+    color:lightblue;
 }
 
 #nav-menu a {
@@ -44,6 +66,10 @@ body {
 }
 
 #nav-menu a:hover {
+    color:black;
+    border-bottom: 1px solid darkcyan;
+}
+#nav-menu .subitem a:hover {
     color:black;
     border-bottom: 1px solid lightblue;
 }
