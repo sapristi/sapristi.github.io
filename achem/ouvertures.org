@@ -146,51 +146,41 @@ ce choix.
 
 #+BEGIN_SRC dot :file images/ribosome.png :cmdline -Kdot -Tpng
   digraph G {
-          mol_start_place[color = "red"]
-          DNA_start_place[color = "blue"]
+          mol_place[color = "red"]
+          DNA_place[color = "blue"]
           
-          filter_transition_0[shape = "rectangle"]
-          mol_temp_place_0[color = "red"]
-          bind_transition_0[shape = "rectangle"]
+          transition_A[shape = "rectangle"]
           
-          filter_transition_1[shape = "rectangle"]
-          mol_temp_place_1[color = "red"]
-          bind_transition_1[shape = "rectangle"]
+          
+          transition_B[shape = "rectangle"]
+          
+          
+          atom_graber_A[color = "green"]
+          atom_graber_B[color = "green"]
+                    
+          mol_start_place -> transition_A ->
+          mol_start_place  [color =red];
+
+          mol_place -> transition_B ->
+          mol_place [color = "red"];
+
+          DNA_place -> transition_A
+          [label = "filter A", color = blue];
+
+          DNA_place -> transition_B
+          [label = "filter B", color = blue];
+          
+          transition_A -> DNA_place
+          [color = blue];
 
           
-          filter_transition_n[shape = "rectangle", style = "dotted"]
-          mol_temp_place_n[color = "red", style = "dotted"]
-          bind_transition_n[shape = "rectangle", style = "dotted"]
-          
-          DNA_end_place[color = "blue"]
-          mol_end_place[color = "red"]
-          
-          acid_holder_0[color = "green"]
-          acid_holder_1[color = "green"]
-          acid_holder_n[color = "green"]
-          
-          mol_start_place -> filter_transition_0 ->
-          mol_temp_place_0  -> bind_transition_0 ->
-          mol_end_place [color =red];
+          transition_A -> DNA_place
+          [color = blue];
 
-          mol_start_place -> filter_transition_1 ->
-          mol_temp_place_1  -> bind_transition_1 ->
-          mol_end_place [color = "red"];
+          atom_graber_A -> transition_A [color = "green"];
+          atom_graber_B_ -> transition_B [color = "green"];
 
-          mol_start_place -> filter_transition_n ->
-          mol_temp_place_n  -> bind_transition_n ->
-          mol_end_place [style = "dotted", color = "red"];
-
-          DNA_start_place -> filter_transition_0 -> DNA_end_place
-          [color = "blue"];
-          DNA_start_place -> filter_transition_1 -> DNA_end_place
-          [color = "blue"];
-          DNA_start_place -> filter_transition_n ->
-          DNA_end_place [style = "dotted", color = "blue"];
-
-          acid_holder_0 -> bind_transition_0 [color = "green"];
-          acid_holder_1 -> bind_transition_1 [color = "green"];
-          acid_holder_n -> bind_transition_n [color = "green", style = "dotted"];
+"dotted"];
           
   }
 #+END_SRC
@@ -198,101 +188,7 @@ ce choix.
    #+RESULTS:
    [[file:images/ribosome.png]]
 
-   En détaillant un chemin en particulier, voici ce que cela donne : 
- 
 
-#+BEGIN_SRC dot :file images/ribosome_detailed.png :cmdline -Kdot -Tpng
-      digraph G {
-              mol_start_place[color = "red"]
-              DNA_start_place[color = "blue"]
-              
-              filter_transition[shape = "rectangle"]
-              mol_temp_place[color = "red"]
-              bind_transition[shape = "rectangle"]
-              
-              DNA_end_place[color = "blue"]
-              mol_end_place[color = "red"]
-              
-              acid_holder[color = "green"]
-
-              mol_start_place -> filter_transition ->
-              mol_temp_place  -> bind_transition ->
-              mol_end_place [color =red];
-
-              DNA_start_place -> filter_transition -> DNA_end_place
-              [color = "blue"];
-              acid_holder -> bind_transition [color = "green"];
-              
-      }
-#+END_SRC
-
-#+RESULTS:
-   [[file:ribosome_detailed.png]]
-
-
-A more compact universal ribosome, working in reverse.
-#+BEGIN_SRC
-[["Place"],
-["InputArc","AA",["Regular"]],
-["OutputArc","AA",["Bind"]],
-["InputArc","AB",["Regular"]],
-["OutputArc","AB",["Bind"]],
-["InputArc","AC",["Regular"]],
-["OutputArc","AC",["Bind"]],
-["InputArc","AD",["Regular"]],
-["OutputArc","AD",["Bind"]],
-["InputArc","AF",["Regular"]],
-["OutputArc","AF",["Bind"]],
-["InputArc","AAA",["Regular"]],
-["OutputArc","BBB",["Regular"]],
-["Place"],
-["InputArc","AA",["Regular"]],
-["Extension",["Grab","FAF"]],
-["Place"],
-["InputArc","AB",["Regular"]],
-["Extension",["Grab","FBF"]],
-["Place"],
-["InputArc","AC",["Regular"]],
-["Extension",["Grab","FCF"]],
-["Place"],
-["InputArc","AD",["Regular"]],
-["Extension",["Grab","FDF"]],
-["Place"],
-["InputArc","AF",["Regular"]],
-["Extension",["Grab","FFF"]],
-["Place"],
-["InputArc","AA",["Filter","A"]],
-["OutputArc","AA",["Move",true]],
-["InputArc","AB",["Filter","B"]],
-["OutputArc","AB",["Move",true]],
-["InputArc","AC",["Filter","C"]],
-["OutputArc","AC",["Move",true]],
-["InputArc","AD",["Filter","D"]],
-["OutputArc","AD",["Move",true]],
-["InputArc","AF",["Filter","F"]],
-["OutputArc","AF",["Move",true]],
-["InputArc","AAA",["Filter_empty"]],
-["OutputArc","BBB",["Regular"]],
-["Place"],
-["OutputArc","AAA",["Regular"]],
-["Extension",["Release"]],
-["Place"],
-["OutputArc","AAA",["Regular"]],
-["Extension",["Release"]],
-["Place"],
-["InputArc","BBB",["Regular"]],
-["OutputArc","CCC",["Regular"]],
-["Place"],
-["InputArc","BBB",["Regular"]],
-["Extension",["Grab","DFDFFF"]],
-["Place"],
-["InputArc","CCC",["Split"]],
-["OutputArc","CCC",["Regular"]],
-["Extension",["Init_with_token"]]]
-#+END_SRC
-
-
-    
 ** Bacterie
    Une bacterie contient des molécules. Pour chaque molecule, on 
    connait le nombre présent, et on simule une unique forme protéinée 
