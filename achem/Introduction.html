@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>milim - ACHEM</title>
+    <meta name="description" content="a poole site" />
+    <meta name="keywords" content="poole" />
+    
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/sakura.css" />
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+</head>
+<body>
+  <div class="pure-g">
+    
+    <div class="pure-u-1-5">
+      
+      <div class="pure-menu" id="nav-menu">
+	<ul class="pure-menu-list">
+<li class="pure-menu-item"><a href="/index.html">HOME</a><span><</span></li>
+<li class="pure-menu-item selected"><a href="/achem.html">ACHEM</a><span><</span></li>
+<ul class='pure-menu-list'>
+<li class="pure-menu-item subitem selected"><a href="/achem/Introduction.html">introduction</a><span><</span></li>
+<li class="pure-menu-item subitem"><a href="/achem/Implementation.html">implémentation</a><span><</span></li>
+<li class="pure-menu-item subitem"><a href="/achem/ouvertures.html">ouvertures</a><span><</span></li>
+</ul>
+<li class="pure-menu-item"><a href="/blog.html">BLOG</a><span><</span></li>
+	</ul>
+      </div>
+
+    </div>
+
+    
+    <div class="pure-u-4-5">
+      <div id="main-block">
+      
+	<div id="header">
+	  <div><h1>ACHEM</h1></div>
+	  <div><h1>milim</h1></div> 
+	</div>
+      
+      <div id="content"><h1>Intro</h1>
+<p>Du coup, on veut ici créer un programme qui réalise le rêve de
+la vie artificielle :
+héberger et simuler des cellules qui vont évoluer afin de recréer
+la vie <em>in silico</em> (on peut toujours rêver).</p>
+<h2>Résumé des épisodes précédents</h2>
+<p>Il y a eu plusieurs essais dans ce sens : </p>
+<ul>
+<li>
+<p>Tierra : </p>
+<ul>
+<li>
+<p>Le monde est un tableau unidimensionnel. Chaque case est soit
+    vide, soit contient une instruction, parmi un jeu 
+    d'instruction bien choisi.</p>
+</li>
+<li>
+<p>Les cellules sont un ensemble contigu de cases, et donc des
+    instructions qu'elles contiennent.</p>
+</li>
+</ul>
+<p>Le jeu d'instruction permet aux cellules de lire n'importe où, 
+mais pas d'écrire à l'intérieur d'autres cellules. Les cellules 
+se dupliquent en recopiant leur code génétique vers une partie 
+vide de la bande.</p>
+<ul>
+<li>
+<p>Chaque cellule a son processeur propre, qui simule
+    l'exécution de son code.</p>
+</li>
+<li>
+<p>Comportements apparus : spécialisation, parasitage, un peu de 
+    complexification</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Hutton's Achem : </p>
+<ul>
+<li>
+<p>Le monde est un tableau bidimensionnel. Le monde contient
+    des atomes, qui peuvent se déplacer plus ou moins librement.</p>
+</li>
+<li>
+<p>Les atomes ont un type donné, et un état qui peut varier au 
+    cours du temps. Un jeu de réactions chimique, qui détermine 
+    si deux atomes de type et d'état donné qui se rencontrent 
+    vont former une liaison. 
+    Jeu de réactions chimiques bien choisi.</p>
+</li>
+<li>
+<p>Les cellules ont une membrane qui forme un cercle, et un brin 
+    d'ADN, relié à ses deux extrémités à la membrane. Les 
+    cellules se dupliquent de manière spontanée grâce aux 
+    réactions chimiques.</p>
+</li>
+<li>
+<p>Le monde est simulé <em>physiquement</em>, c'est à dire chaque atome 
+    séparemment, et rien d'autre.</p>
+</li>
+<li>
+<p>Comportements apparus : pas grand chose, à part une légère 
+    réduction de l'ADN.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>En résumé, Tierra s'est montré prometteur, mais est beaucoup plus 
+proche d'un ordinateur que d'une cellule. On manque en particulier 
+de capacité de réaction, de communication, etc&#x2026;</p>
+<p>Hutton est très proche en quelques sorte de la biologie, mais 
+ça ne marche pas très bien. Sans parler des coûts de simulation 
+faramineux, ni du jeu de réactions chimiques tellement alambiqué 
+pour que ça marche que c'en est un peu absurde. </p>
+<h2>Où l'on essaie de préparer un autre épisode</h2>
+<p>Ce que j'aimerait faire, c'est un modèle qui soit à la fois proche
+du fonctionnement des ordinateurs (c'est à dire en particulier avec 
+une physique très simple, sans avoir besoin de simuler des choses à 
+un niveau très bas), et qui reflète le principe de fonctionnement 
+d'une cellule autant qu'il est souhaitable et possible.</p>
+<p>Une première idée à été de faire un peu comme Tierra, mais en plus 
+de dimensions. Une cellule est une matrice, où les fonctions sont
+des instructions qui pointent vers la suivante (contiguë). En trois
+dimensions, ça peut commencer à donner des trucs assez rigolos, 
+mais gérer la duplication semble devenir complexe. On perds aussi 
+la bonne relation qui existait entre les cellules et l'univers.</p>
+<p>La deuxième idée est d'utiliser des modèles complutationnels simples 
+pour simuler les protéines. Partant des automates, j'en suis arrivé 
+aux réseaux de Petri, qui me semblent assez prometteurs. 
+On le décrira plus précisement par la suite.</p>
+<h2>Trucs importants à garder en tête</h2>
+<p>Les membranes, c'est la vie en plus tranquille.
+La communication, c'est la vie en plus rigolo.
+La vie tout court, c'est déjà pas mal.
+Les ribosomes, c'est trop l'éclate.
+Toute action engendre une réaction.</p></div>
+      </div>
+    </div>
+
+    
+    <div class="pure-u-1">
+      <div id="footer">
+        Built with <a href="http://bitbucket.org/obensonne/poole">Poole</a>
+        &middot;
+        Licensed as <a href="http://creativecommons.org/licenses/by-sa/3.0">CC-SA</a>
+        &middot;
+        <a href="http://validator.w3.org/check?uri=referer">Validate me</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
