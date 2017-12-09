@@ -150,16 +150,13 @@ ce choix.
           DNA_place[color = "blue"]
           
           transition_A[shape = "rectangle"]
-          
-          
           transition_B[shape = "rectangle"]
-          
           
           atom_graber_A[color = "green"]
           atom_graber_B[color = "green"]
                     
-          mol_start_place -> transition_A ->
-          mol_start_place  [color =red];
+          mol_place -> transition_A ->
+          mol_place  [color =red];
 
           mol_place -> transition_B ->
           mol_place [color = "red"];
