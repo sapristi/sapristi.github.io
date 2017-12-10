@@ -12,6 +12,7 @@ subtitle:introduction
 
 * Intro
 
+  
   Du coup, on veut ici créer un programme qui réalise le rêve de
   la vie artificielle :
   héberger et simuler des cellules qui vont évoluer afin de recréer
