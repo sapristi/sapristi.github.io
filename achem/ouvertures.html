@@ -22,7 +22,6 @@
 <li class="pure-menu-item"><a href="/index.html">HOME</a><span><</span></li>
 <li class="pure-menu-item selected"><a href="/achem.html">ACHEM</a><span><</span></li>
 <ul class='pure-menu-list'>
-<li class="pure-menu-item subitem"><a href="/achem/Introduction.html">introduction</a><span><</span></li>
 <li class="pure-menu-item subitem"><a href="/achem/Implementation.html">implementation</a><span><</span></li>
 <li class="pure-menu-item subitem selected"><a href="/achem/ouvertures.html">ouvertures</a><span><</span></li>
 </ul>
@@ -85,12 +84,16 @@ avec une structure linéaire pour les molécules.</p>
 <p>La membrane est une partie essentielle d'une bactérie, puisqu'elle 
 la définit en établissant une barrière avec le monde extérieur.</p>
 <p>Pour l'implémentation d'une membrane, les fonctionnalités désirées 
-sont :
--   Permettre à la bactérie de réguler les entrées/sorties de</p>
-<p>molécules
--   Établir une barrière <em>difficile</em> à franchir pour les molécules
-    extérieures non désirées.
--   Avoir un taille nécéssaire en fonction de la quantité de</p>
+sont :</p>
+<ul>
+<li>Permettre à la bactérie de réguler les entrées/sorties de</li>
+</ul>
+<p>molécules</p>
+<ul>
+<li>Établir une barrière <em>difficile</em> à franchir pour les molécules
+    extérieures non désirées.</li>
+<li>Avoir un taille nécéssaire en fonction de la quantité de</li>
+</ul>
 <p>molécules présentes, sous risque d'effets néfastes.</p>
 <p>Idée : Implémenter dans les cellules deux bornes qui doivent 
 être reliées par un certain nombre de protéines.
@@ -101,23 +104,27 @@ des catch/bind)</p>
 de se lier. Le design de cette extension est fait de sorte 
 à pouvoir facilement implémenter des membranes</p>
 <p>Une Bind extension possède simplement une string, et se colle
-à une string symétrique :
--   reversed ? -&gt; le plus simple
--   symétrie des atomes ? -&gt; pourquoi, pourquoi pas ?</p>
+à une string symétrique :</p>
+<ul>
+<li>reversed ? -&gt; le plus simple</li>
+<li>symétrie des atomes ? -&gt; pourquoi, pourquoi pas ?</li>
+</ul>
 <p>Condition pour Binder : Les places sont vides
 Après le Bind, des token sont crées. -&gt; cela permet d'effectuer
 une action après le  bind.</p>
 <p>Condition pour DéBinder : deux token reviennent, puis sont consommés.</p>
 <p>Deux réseaux de pétri bindés sont donc liés physiquement dans l'espace.</p>
-<p>Se présentent alors plusieurs choix :
--   un Bind FORT : les réseaux de pétri sont fusionnés à la Place
+<p>Se présentent alors plusieurs choix :</p>
+<ul>
+<li>un Bind FORT : les réseaux de pétri sont fusionnés à la Place
     de Bind, ce qui permet de créer de nouveaux réseaux plus 
     compliqués
     -&gt; c'est assez compliqué à gérer, deux places sont fusionnées,
     il faut aussi pouvoir débinder, bref garder beaucoup en mémoire
-    et avoir des structures de données compliquées
--   un Bind FAIBLE : les réseaux de Pétri sont indépendants
-    -&gt; c'est assez simple, et ça peut suffire pour les membranes</p>
+    et avoir des structures de données compliquées</li>
+<li>un Bind FAIBLE : les réseaux de Pétri sont indépendants
+    -&gt; c'est assez simple, et ça peut suffire pour les membranes</li>
+</ul>
 <p>Dans tous les cas, il faut créer un graphe sur-jacent qui va garder 
 en mémoire la structure de la molécule, pour pouvoir travailler sur 
 la structure (détecter les cycles, la distance entre deux pnet, etc).</p>
@@ -149,7 +156,39 @@ pour recommencer l'opération avec le morceau d'information suivant.</p>
 décrit, où les chemins que peut suivre la molécule sont en rouge, 
 les chemins que peut suivre le brin d'ADN est en bleu, et les acides
 en vert.</p>
-<p><img alt="img" src="/achem/images/ribosome.png" /></p>
+<pre><code>digraph G {
+        mol_place[color = "red"]
+        DNA_place[color = "blue"]
+
+        transition_A[shape = "rectangle"]
+        transition_B[shape = "rectangle"]
+
+        atom_graber_A[color = "green"]
+        atom_graber_B[color = "green"]
+
+        mol_place -&gt; transition_A -&gt;
+        mol_place  [color =red];
+
+        mol_place -&gt; transition_B -&gt;
+        mol_place [color = "red"];
+
+        DNA_place -&gt; transition_A
+        [label = "filter A", color = blue];
+
+        DNA_place -&gt; transition_B
+        [label = "filter B", color = blue];
+
+        transition_A -&gt; DNA_place
+        [color = blue];
+
+        transition_B -&gt; DNA_place
+        [color = blue];
+
+        atom_graber_A -&gt; transition_A [color = "green"];
+        atom_graber_B -&gt; transition_B [color = "green"];
+
+}
+</code></pre>
 </li>
 </ol>
 <h2>Bacterie</h2>
@@ -165,29 +204,39 @@ pour toutes les molécules du même type.</p>
 </ul>
 </li>
 </ul>
-<p>La simulation est alors découpée en (pour l'instant) deux étapes :
--   Simulation des protéines
--   Résolution des catch/bind</p>
+<p>La simulation est alors découpée en (pour l'instant) deux étapes :</p>
+<ul>
+<li>Simulation des protéines</li>
+<li>Résolution des catch/bind</li>
+</ul>
 </li>
 </ol>
 <h3>Simulation des protéines</h3>
 <p>La protéine associée à chaque molécule lance un certain nombre
 de transitions de son réseau de pétri. Pour choisir ce nombre,
-on pourrait :
--   le faire correspondre au nombre de mol présentes</p>
-<p>(ou une fonction de celui-ci
--   Prendre le pgcd de tous les nombres de molécules</p>
+on pourrait :</p>
+<ul>
+<li>le faire correspondre au nombre de mol présentes</li>
+</ul>
+<p>(ou une fonction de celui-ci</p>
+<ul>
+<li>Prendre le pgcd de tous les nombres de molécules</li>
+</ul>
 <p>(ou même diviser par le plus petit et arrondir)
 pour que le coût de simulation ne dépende pas du 
 nombre de molécules).</p>
 <h3>Résolution des catch/bind</h3>
 <p>On calcule combien de bind sont effectués.</p>
 <p>Pour le déroulé du bind en lui même, on peut aussi avoir
-plusieurs choix :
--   Le bind crée un token
--   Le bind peut seulement se dérouler si un token vide</p>
-<p>se trouve sur la place avec le catcher
--   Si un token occupé par une molécule se trouve sur la</p>
+plusieurs choix :</p>
+<ul>
+<li>Le bind crée un token</li>
+<li>Le bind peut seulement se dérouler si un token vide</li>
+</ul>
+<p>se trouve sur la place avec le catcher</p>
+<ul>
+<li>Si un token occupé par une molécule se trouve sur la</li>
+</ul>
 <p>place, la molécule est remplacée, ou alors une des deux 
 au hasard.</p>
 <ol>
@@ -201,20 +250,22 @@ soit tout exécuter, etc.</p>
 </li>
 </ol>
 <h2>Le monde</h2>
-<p>Quelques idées : 
--   les bactéries peuvent se duppliquer sans restriction physique.
+<p>Quelques idées : </p>
+<ul>
+<li>les bactéries peuvent se duppliquer sans restriction physique.
     À chaque nouvelle bactérie créée on attribue une certaines
-    distribution des différentes ressources (acides aminés ?)
--   Matrice (tridimensionnelle), avec des « commandes » pour 
+    distribution des différentes ressources (acides aminés ?)</li>
+<li>Matrice (tridimensionnelle), avec des « commandes » pour 
     interagir avec les cellules voisines, se déplacer,
-    communiquer, etc..
--   Hôtes pour simuler un comportement multicellulaire : 
+    communiquer, etc..</li>
+<li>Hôtes pour simuler un comportement multicellulaire : 
     l'hôte a différents emplacements pour cellules, où 
     se trouvent  des recepteurs particuliers, qui permettent
-    à l'hôte d'effectuer des actions dans un autre monde physique.
--   Graphe (lazy ?) ou les nœuds contiennent pour chaque arc une 
+    à l'hôte d'effectuer des actions dans un autre monde physique.</li>
+<li>Graphe (lazy ?) ou les nœuds contiennent pour chaque arc une 
     interface permettant de simuler une membrane. On peut imaginer
-    différentes interfaces, avec différents niveaux de « difficulté ».</p>
+    différentes interfaces, avec différents niveaux de « difficulté ».</li>
+</ul>
 <h2>Énergie</h2>
 <p>Les tokens peuvent être un bon moyen de gérer les échanges 
 énergétiques. Le mieux serait sans-doute de faire comme en vrai, 
