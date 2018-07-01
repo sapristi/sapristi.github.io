@@ -7,8 +7,9 @@
     <meta name="keywords" content="poole" />
     
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/sakura.css" />
-    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/sakura.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/codehighlight.css" />
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
 
 </head>
@@ -157,27 +158,27 @@ pour recommencer l'opération avec le morceau d'information suivant.</p>
 décrit, où les chemins que peut suivre la molécule sont en rouge, 
 les chemins que peut suivre le brin d'ADN est en bleu, et les acides
 en vert.</p>
-<pre><code>digraph G {
-        mol_place[color = "red"]
-        DNA_place[color = "blue"]
+<div class="codehilite"><pre><span></span>digraph G {
+        mol_place[color = &quot;red&quot;]
+        DNA_place[color = &quot;blue&quot;]
 
-        transition_A[shape = "rectangle"]
-        transition_B[shape = "rectangle"]
+        transition_A[shape = &quot;rectangle&quot;]
+        transition_B[shape = &quot;rectangle&quot;]
 
-        atom_graber_A[color = "green"]
-        atom_graber_B[color = "green"]
+        atom_graber_A[color = &quot;green&quot;]
+        atom_graber_B[color = &quot;green&quot;]
 
         mol_place -&gt; transition_A -&gt;
         mol_place  [color =red];
 
         mol_place -&gt; transition_B -&gt;
-        mol_place [color = "red"];
+        mol_place [color = &quot;red&quot;];
 
         DNA_place -&gt; transition_A
-        [label = "filter A", color = blue];
+        [label = &quot;filter A&quot;, color = blue];
 
         DNA_place -&gt; transition_B
-        [label = "filter B", color = blue];
+        [label = &quot;filter B&quot;, color = blue];
 
         transition_A -&gt; DNA_place
         [color = blue];
@@ -185,11 +186,13 @@ en vert.</p>
         transition_B -&gt; DNA_place
         [color = blue];
 
-        atom_graber_A -&gt; transition_A [color = "green"];
-        atom_graber_B -&gt; transition_B [color = "green"];
+        atom_graber_A -&gt; transition_A [color = &quot;green&quot;];
+        atom_graber_B -&gt; transition_B [color = &quot;green&quot;];
 
 }
-</code></pre>
+</pre></div>
+
+
 </li>
 </ol>
 <h2>Bacterie</h2>
