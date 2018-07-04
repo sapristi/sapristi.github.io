@@ -39,13 +39,36 @@
 	  <div><h1>milim</h1></div> 
 	</div>
       
-      <div id="content"><ul>
-<li><strong><a href="/blog/authenticationless_ssh.html">authenticationless ssh login</a></strong> - July 04, 2018</li>
-<li><strong><a href="/blog/chroot_for_custom_env.html">chroot for a custom environment</a></strong> - June 29, 2018</li>
-</ul></div>
+      <div id="content"><h1>Authenticationless ssh login</h1>
+<p>How to setup a user on a machine that anyone can connect to, without asking for a password. This is of course not something to do with a machine that exposes the ssh port to the internet, but I don't see how this would be so bad in a LAN).</p>
+<p>So let's say we want to leave access to <code>freeuser</code> open.</p>
+<ol>
+<li>Remove password : <code>passwd -d freeuser</code></li>
+<li>Allow empty password in sshconfig :</li>
+</ol>
+<p><div class="codehilite"><pre><span></span>/etc/ssh/sshd_config
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+...
+PermitEmptyPasswords yes
+...
+</pre></div>
+  3. Modify pam authentication parameters :
+  <div class="codehilite"><pre><span></span>/etc/pam.d/common-auth
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+auth    [success=1 default=ignore]      pam_unix.so nullok
+</pre></div></p></div>
       </div>
     </div>
 
+
+<script src="https://utteranc.es/client.js"
+        repo="sapristi/sapristi.github.io"
+        issue-term="pathname"
+        crossorigin="anonymous"
+        async>
+</script>
 
     
     <div class="pure-u-1">
