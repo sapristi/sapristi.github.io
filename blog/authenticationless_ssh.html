@@ -44,21 +44,19 @@
 <p>So let's say we want to leave access to <code>freeuser</code> open.</p>
 <ol>
 <li>Remove password : <code>passwd -d freeuser</code></li>
-<li>Allow empty password in sshconfig :</li>
-</ol>
-<p><div class="codehilite"><pre><span></span>/etc/ssh/sshd_config
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-...
-PermitEmptyPasswords yes
-...
+<li>Allow empty password in <code>/etc/ssh/sshd_config</code> :
+     <div class="codehilite"><pre><span></span>PermitEmptyPasswords yes
+</pre></div></li>
+<li>
+<p>Finally, depending on your distro, you might have to modify pam behaviour.</p>
+<p>For example, on debian systems, modify <code>/etc/pam.d/common-auth</code> by replacing the line
+ <div class="codehilite"><pre><span></span>auth    [success=1 default=ignore]      pam_unix.so nullok_secure
 </pre></div>
-  3. Modify pam authentication parameters :
-  <div class="codehilite"><pre><span></span>/etc/pam.d/common-auth
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-auth    [success=1 default=ignore]      pam_unix.so nullok
-</pre></div></p></div>
+ by
+ <div class="codehilite"><pre><span></span>auth    [success=1 default=ignore]      pam_unix.so nullok
+</pre></div></p>
+</li>
+</ol></div>
       </div>
     </div>
 
