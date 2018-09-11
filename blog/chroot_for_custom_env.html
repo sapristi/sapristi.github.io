@@ -22,6 +22,7 @@
       <div class="pure-menu" id="nav-menu">
 	<ul class="pure-menu-list">
 <li class="pure-menu-item"><a href="/index.html">HOME</a><span><</span></li>
+<li class="pure-menu-item"><a href="/projects.html">PROJECTS</a><span><</span></li>
 <li class="pure-menu-item"><a href="/achem.html">ACHEM</a><span><</span></li>
 <li class="pure-menu-item selected"><a href="/blog.html">BLOG</a><span><</span></li>
 	</ul>
@@ -71,16 +72,15 @@ I advise you to look for ways to install a bootstrap of the distribution of your
 <p>The first thing to do is to write a configuration file for schroot. Examples of configuration can be found in the file <code>/etc/schroot/schroot.conf</code>. You can either add a configuration to this file, or write a configuration in a new file, which we will do.</p>
 <p>I will here assume that we want a chroot to an os with the same architecture, with a shared X session.</p>
 <p>Create the file  <code>/etc/schroot/chroot.d/myenv.conf</code> and add these lines :</p>
-<div class="codehilite"><pre><span></span><span class="k">[my-environment]</span>
-<span class="na">description</span><span class="o">=</span><span class="s">custom environment</span>
-<span class="na">aliases</span><span class="o">=</span><span class="s">myenv</span>
-<span class="na">type</span><span class="o">=</span><span class="s">directory</span>
-<span class="na">directory</span><span class="o">=</span><span class="s">/envs/myenv</span>
-<span class="na">users</span><span class="o">=</span><span class="s">me</span>
-<span class="na">root-groups</span><span class="o">=</span><span class="s">root</span>
-<span class="na">preserve-environment</span><span class="o">=</span><span class="s">true</span>
-<span class="na">profile</span><span class="o">=</span><span class="s">desktop-custom</span>
-</pre></div>
+<pre class="codehilite"><code>[my-environment]
+description=custom environment
+aliases=myenv
+type=directory
+directory=/envs/myenv
+users=me
+root-groups=root
+preserve-environment=true
+profile=desktop-custom</code></pre>
 
 <p>See <code>man schroot.conf</code> to describe the provided options.</p>
 <ul>
@@ -93,7 +93,7 @@ I advise you to look for ways to install a bootstrap of the distribution of your
 <ul>
 <li><code>nssdatabases</code>  that we will not modify.</li>
 <li><code>copyfiles</code> :
-    <div class="codehilite"><pre><span></span># network
+    <pre class="codehilite"><code># network
 /etc/resolv.conf
 
 # shared X session
@@ -104,10 +104,9 @@ I advise you to look for ways to install a bootstrap of the distribution of your
 /etc/locale.conf
 
 # time
-/etc/localtime
-</pre></div></li>
+/etc/localtime</code></pre></li>
 <li><code>fstab</code> : a custom fstab file. I did some changes to this file :
-     <div class="codehilite"><pre><span></span>/proc           /proc           none    rw,bind         0       0
+     <pre class="codehilite"><code>/proc           /proc           none    rw,bind         0       0
 /sys            /sys            none    rw,bind         0       0
 /dev            /dev            none    rw,bind         0       0
 /dev/pts        /dev/pts        none    rw,bind         0       0
@@ -125,21 +124,19 @@ I advise you to look for ways to install a bootstrap of the distribution of your
 # If you use gdm3, uncomment this line to allow Xauth to work
 #/var/run/gdm3  /var/run/gdm3   none    rw,bind         0       0
 # For PulseAudio and other desktop-related things
-/var/lib/dbus    /var/lib/dbus  none    rw,bind         0       0
-</pre></div></li>
+/var/lib/dbus    /var/lib/dbus  none    rw,bind         0       0</code></pre></li>
 </ul>
 <h4>1.3 Setup the new environment</h4>
 <p>Once the previous session is set, you can enter the chroot with the command <code>schroot -c myenv</code></p>
 <p>For easier access, you can put a script in your path that launches the terminal emulator of your choice (terminator here). </p>
-<div class="codehilite"><pre><span></span>:::bash
+<pre class="codehilite"><code>:::bash
 #!/bin/bash
 
 # options for terminator : 
 # -u : no systemd (prevents some warning)
 # -T myenv : sets the title of the terminal so that you can
 # differentiate it from non-chroot terminals 
-schroot -c dev -- sh -c &quot;terminator -u -T myenv&quot;
-</pre></div>
+schroot -c dev -- sh -c &quot;terminator -u -T myenv&quot;</code></pre>
 
 <p>It is important to differentiate the terminal launched in the chroot from the one of you main OS. You can either use another terminal emulator, use different color scheme, etc. The same applies to any other program that you could launch in both environments, like emacs.</p>
 <p>Depending on you window manager, it might be possible to change the window decorations based on the environments they were launched on, but this is not possible in XFCE. It is possible though to change the GTK theme.</p></div>

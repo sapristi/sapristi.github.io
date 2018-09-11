@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>milim - PROJECTS</title>
+    <meta name="description" content="a poole site" />
+    <meta name="keywords" content="poole" />
+    
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/sakura.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/codehighlight.css" />
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+
+</head>
+<body>
+  
+  <div class="pure-g">
+    
+    <div class="pure-u-1-5">
+      
+      <div class="pure-menu" id="nav-menu">
+	<ul class="pure-menu-list">
+<li class="pure-menu-item"><a href="/index.html">HOME</a><span><</span></li>
+<li class="pure-menu-item selected"><a href="/projects.html">PROJECTS</a><span><</span></li>
+<li class="pure-menu-item"><a href="/achem.html">ACHEM</a><span><</span></li>
+<li class="pure-menu-item"><a href="/blog.html">BLOG</a><span><</span></li>
+	</ul>
+      </div>
+
+    </div>
+
+
+
+    <div class="pure-u-4-5">
+      <div id="main-block">
+      
+	<div id="header">
+	  <div><h1>PROJECTS</h1></div>
+	  <div><h1>milim</h1></div> 
+	</div>
+      
+      <div id="content"><h1>1. Projet Congruence</h1>
+<p>Projet développé en binôme pendant ma formation Big Data. Le but du programme est d'explorer le champ sémantique associé à un mot dans des articles de journaux.</p>
+<p>Le programme va tout d'abord effectuer des recherches sur des sites de news, récupérer et parser des articles pour en récupérer le contenu textuel. Ce contenu sera ensuite analysé à l'aide de l'outil CoreNLP développé par Standford, pour en extraire les sujets intéressant. Une recherche de nouveaux est ensuite lancée récursivement à partir des sujets les plus fréquents.</p>
+<p>Les résultats sont ensuite affichés sous forme de graphe dans une interface web.</p>
+<h3>Outils utilisés</h3>
+<p><div class="row">
+  <div class="column">
+ <ul>
+  <li>Apache Storm (avec la librairie python Streamparse) pour la gestion du flux de données</li>
+  <li>MongoDB pour le  stockage de  donneés</li>
+  <li>Serveur Python/Flask pour l'interface web</li>
+</ul> 
+</div>
+<div class="column"><figure>
+     <a href=projects_resources/storm_schema.png>
+     <img src="/projects_resources/storm_schema.png" alt="drawing" width="300px"/></a>
+     <figcaption>Schéma flux de données -- Storm.</figcaption>
+     </figure>
+</div>
+</div> </p>
+<h3>Ressources</h3>
+<ul>
+<li><a href="https://github.com/toane/Congruence">Sources du projet</a></li>
+<li><a href="https://www.youtube.com/watch?v=9vUKYk10r_k">Vidéo de démonstration</a></li>
+</ul>
+<h1>2. Projet Bocal</h1>
+<p>Projet Java visant à implémenter une intelligence artificielle de groupe. Des poissons sont placés dans un bocal, ils doivent éviter les bords du bocal, ainsi que les autres poissons.</p>
+<p><img alt="Image" src="/projects_resources/bocal.gif" /></p>
+<p><a href="https://github.com/sapristi/bocal_java">Sources du projet</a></p></div>
+      </div>
+    </div>
+
+
+    
+    <div class="pure-u-1">
+      <div id="footer">
+        Built with <a href="http://bitbucket.org/obensonne/poole">Poole</a>
+        &middot;
+        Licensed as <a href="http://creativecommons.org/licenses/by-sa/3.0">CC-SA</a>
+        &middot;
+        <a href="http://validator.w3.org/check?uri=referer">Validate me</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
