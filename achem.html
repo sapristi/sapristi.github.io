@@ -45,7 +45,26 @@
 	</div>
       
       <div id="content"><p>Presenting an artificial chemistry based on petri nets.</p>
-<p>A running simulation can be found <a href="http://artlife.ml:51461/">here</a>.</p></div>
+<p>A running simulation can be found <a href="http://artlife.ml:51461/">here</a>.
+Sources can be found <a href="https://github.com/sapristi/alife/tree/dev">here</a></p>
+<h2>Context</h2>
+<p>Multiple attempts have been made to create artificial chemistries that can support « life »; or, to be
+more precise, where evolution can take place (the Game of Life, Tierra, Avida, Hutton's chemistry to cite some of them).</p>
+<p>YAACS is another attempt to tackle this challenge.</p>
+<h2>Overview</h2>
+<p>In the real (very simplified) world, the operation of a biological cell is based on proteines :</p>
+<ul>
+<li>a proteine is a string of aminate acids; this means it is easy to create for a recipe (the DNA) :
+   it is basically a linear read/write operation.</li>
+<li>in its folded form, a proteine can perform functions on regular molecules or other proteines.</li>
+</ul>
+<p>YAACS takes it's inspiration on those facts in the following way :</p>
+<ul>
+<li><em>molecules</em> are strings of <em>atoms</em></li>
+<li>certain patterns in molecules are decoded as <em>acids</em></li>
+<li><em>proteines</em> (strings of <em>acids</em>) can be folded to constuct a <em>petri net</em>, the functional form of a <em>protein</em></li>
+</ul>
+<p>The <a href="https://en.wikipedia.org/wiki/Petri_net">Petri Nets</a> are extended with custom properties, in order to provide the possibility to duplicate an arbitrary molecule. In other words, the set of rules is designed so that basic duplication can take place in YAACS world.</p></div>
       </div>
     </div>
 
