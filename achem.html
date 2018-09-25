@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>milim - ACHEM</title>
+    <title>milim - YAAC</title>
     <meta name="description" content="a poole site" />
     <meta name="keywords" content="poole" />
     
@@ -16,15 +16,16 @@
 <body>
   
   <div class="pure-g">
-    
-    <div class="pure-u-1-5">
       
-      <div class="pure-menu" id="nav-menu">
-	<ul class="pure-menu-list">
+      <div class="pure-u-1-5">
+      
+          <div class="pure-menu" id="nav-menu">
+	      <ul class="pure-menu-list">
 <li class="pure-menu-item"><a href="/index.html">HOME</a><span><</span></li>
 <li class="pure-menu-item"><a href="/projects.html">PROJECTS</a><span><</span></li>
-<li class="pure-menu-item selected"><a href="/achem.html">ACHEM</a><span><</span></li>
+<li class="pure-menu-item selected"><a href="/achem.html">YAAC</a><span><</span></li>
 <ul class='pure-menu-list'>
+<li class="pure-menu-item subitem"><a href="/achem/presentation.html">presentation</a><span><</span></li>
 <li class="pure-menu-item subitem"><a href="/achem/Implementation.html">implementation</a><span><</span></li>
 <li class="pure-menu-item subitem"><a href="/achem/ouvertures.html">ouvertures</a><span><</span></li>
 </ul>
@@ -33,38 +34,22 @@
       </div>
 
     </div>
-
+    
 
 
     <div class="pure-u-4-5">
       <div id="main-block">
       
 	<div id="header">
-	  <div><h1>ACHEM</h1></div>
+	  <div><h1>YAAC</h1></div>
 	  <div><h1>milim</h1></div> 
 	</div>
       
-      <div id="content"><p>Presenting an artificial chemistry based on petri nets.</p>
-<p>A running simulation can be found <a href="http://artlife.ml:51461/">here</a>.
-Sources can be found <a href="https://github.com/sapristi/alife/tree/dev">here</a></p>
-<h2>Context</h2>
-<p>Multiple attempts have been made to create artificial chemistries that can support « life »; or, to be
-more precise, where evolution can take place (the Game of Life, Tierra, Avida, Hutton's chemistry to cite some of them).</p>
-<p>YAACS is another attempt to tackle this challenge.</p>
-<h2>Overview</h2>
-<p>In the real (very simplified) world, the operation of a biological cell is based on proteines :</p>
-<ul>
-<li>a proteine is a string of aminate acids; this means it is easy to create for a recipe (the DNA) :
-   it is basically a linear read/write operation.</li>
-<li>in its folded form, a proteine can perform functions on regular molecules or other proteines.</li>
-</ul>
-<p>YAACS takes it's inspiration on those facts in the following way :</p>
-<ul>
-<li><em>molecules</em> are strings of <em>atoms</em></li>
-<li>certain patterns in molecules are decoded as <em>acids</em></li>
-<li><em>proteines</em> (strings of <em>acids</em>) can be folded to constuct a <em>petri net</em>, the functional form of a <em>protein</em></li>
-</ul>
-<p>The <a href="https://en.wikipedia.org/wiki/Petri_net">Petri Nets</a> are extended with custom properties, in order to provide the possibility to duplicate an arbitrary molecule. In other words, the set of rules is designed so that basic duplication can take place in YAACS world.</p></div>
+      <div id="content"><ol>
+<li><a href=achem/presentation.html>presentation</a></li>
+<li><a href=achem/Implementation.html>implementation</a></li>
+<li><a href=achem/ouvertures.html>ouvertures</a></li>
+</ol></div>
       </div>
     </div>
 

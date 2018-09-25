@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>milim - YAAC</title>
+    <meta name="description" content="a poole site" />
+    <meta name="keywords" content="poole" />
+    
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/sakura.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/codehighlight.css" />
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+
+</head>
+<body>
+  
+  <div class="pure-g">
+      
+      <div class="pure-u-1-5">
+      
+          <div class="pure-menu" id="nav-menu">
+	      <ul class="pure-menu-list">
+<li class="pure-menu-item"><a href="/index.html">HOME</a><span><</span></li>
+<li class="pure-menu-item"><a href="/projects.html">PROJECTS</a><span><</span></li>
+<li class="pure-menu-item selected"><a href="/achem.html">YAAC</a><span><</span></li>
+<ul class='pure-menu-list'>
+<li class="pure-menu-item subitem selected"><a href="/achem/presentation.html">presentation</a><span><</span></li>
+<li class="pure-menu-item subitem"><a href="/achem/Implementation.html">implementation</a><span><</span></li>
+<li class="pure-menu-item subitem"><a href="/achem/ouvertures.html">ouvertures</a><span><</span></li>
+</ul>
+<li class="pure-menu-item"><a href="/blog.html">BLOG</a><span><</span></li>
+	</ul>
+      </div>
+
+    </div>
+    
+
+
+    <div class="pure-u-4-5">
+      <div id="main-block">
+      
+	<div id="header">
+	  <div><h1>YAAC</h1></div>
+	  <div><h1>milim</h1></div> 
+	</div>
+      
+      <div id="content"><p>Presenting YAAC, yet another artificial chemistry based on petri nets.</p>
+<p>A running simulation can be found <a href="http://artlife.ml:51461/">here</a>.
+Sources can be found <a href="https://github.com/sapristi/alife/tree/dev">here</a></p>
+<h2>Context</h2>
+<p>Multiple attempts have been made to create artificial chemistries that can support « life »; or, to be
+more precise, where evolution can take place (the Game of Life, Tierra, Avida, Hutton's chemistry to cite some of them).</p>
+<p>YAAC is another attempt to tackle this challenge.</p>
+<h2>Presentation</h2>
+<p>YAAC takes it's inspiration from a (very simplified) vision of the operation of a biological cell, and especially of proteins :</p>
+<ul>
+<li>A proteine is a string of aminate acids; this means it is easy to create one using a recipe (the DNA) :
+   it is basically a linear read/write operation.</li>
+<li>In its folded form, a proteine can perform functions on regular molecules or other proteines.</li>
+</ul>
+<p>An artificial chemistry is a system that contains <em>molecules</em>, that live in a <em>world</em>, and that interact following <em>chemical reaction</em>. In this context, YAAC can be described as follow : </p>
+<ul>
+<li>An <strong>atom</strong> is a letter in the range [A-F].</li>
+<li>A <strong>molecule</strong> is a  string of <strong>atoms</strong>.</li>
+<li>Certain patterns in molecules are decoded as <strong>acids</strong>.</li>
+<li>A <strong>proteine</strong> (a string of <strong>acids</strong>) can be folded to constuct a <strong>petri net</strong>, the functional form of a <strong>protein</strong>.</li>
+<li><strong>Chemical reactions</strong> are of two types :<ul>
+<li>some reactions are performed by the <strong>petri nets</strong>.</li>
+<li>some reactions are statically defined.</li>
+</ul>
+</li>
+<li>Finally, the <strong>world</strong> is a dimensionless space.</li>
+</ul>
+<p>We will talk more about YAAC's particular petri nets in the next section; let us say for now that they are extended versions of regular <a href="https://en.wikipedia.org/wiki/Petri_net">Petri Nets</a>, in such a way that they provide the possibility to create a petri net that can duplicate an arbitrary molecule. In other words, the extensions are designed so that basic duplication can take place in YAAC's world.    </p>
+<h2>More details</h2>
+<h3>YAAC's petri nets</h3>
+<p>The extensions to petri nets provided by YAAC are as follow : </p>
+<ul>
+<li>A <strong>token</strong> can hold a molecule, and then keeps a cursor to a position in the molecule.</li>
+<li>
+<p>A <strong>place</strong> can hold at most one token. It can be extended with properties that allow it to interact with the world :</p>
+<ul>
+<li>catch another molecule from the world and create a token that contains it.</li>
+<li>when it receives a token, release the molecule inside of it back to the world.</li>
+</ul>
+</li>
+<li>
+<p>An <strong>arc</strong> can be extended with properties that allow it to modify the molecules present in the <strong>tokens</strong> that go through this arc. More precisely, the possible actions are :</p>
+<ul>
+<li>move the cursor forward or backward.</li>
+<li>cut the holded molecule at the position defined by the cursor. This will create a new token that will hold the dangling part of the molecule. This action is only available to arcs that lead to a transition.</li>
+<li>take two tokens and create a new one :  insert the molecule from the second token into the first token, at the position of the cursor.</li>
+</ul>
+</li>
+</ul>
+<h3>YAAC's reactions</h3>
+<p>We call reaction anything that happens and modify the state of one or more of YAAC's entities.
+We define three types of reactions</p>
+<ul>
+<li>Transition launch : firing of one of the transitions of one of the petri nets present inside the world, and the resulting effects.</li>
+<li>Grab : one of the petri nets grabs another molecule present inside the world.</li>
+<li>Breaks : one of the molecules breaks in two parts.</li>
+</ul>
+<h3>YAAC's world</h3>
+<p>The world is the entity that contains the molecules. It is here that we define when and how molecule interact with
+each other. In other word, is is here that we decide which reaction  will happen next.</p>
+<p>Since YAAC's world does not have any geometry, molecules collision is purely statistical.</p></div>
+      </div>
+    </div>
+
+
+    
+    <div class="pure-u-1">
+      <div id="footer">
+        Built with <a href="http://bitbucket.org/obensonne/poole">Poole</a>
+        &middot;
+        Licensed as <a href="http://creativecommons.org/licenses/by-sa/3.0">CC-SA</a>
+        &middot;
+        <a href="http://validator.w3.org/check?uri=referer">Validate me</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
