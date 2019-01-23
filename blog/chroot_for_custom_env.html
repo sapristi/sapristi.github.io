@@ -136,7 +136,7 @@ profile=desktop-custom</code></pre>
 # -u : no systemd (prevents some warning)
 # -T myenv : sets the title of the terminal so that you can
 # differentiate it from non-chroot terminals 
-schroot -c dev -- sh -c &quot;terminator -u -T myenv&quot;</code></pre>
+schroot -c dev -- sh -c "terminator -u -T myenv"</code></pre>
 
 <p>It is important to differentiate the terminal launched in the chroot from the one of you main OS. You can either use another terminal emulator, use different color scheme, etc. The same applies to any other program that you could launch in both environments, like emacs.</p>
 <p>Depending on you window manager, it might be possible to change the window decorations based on the environments they were launched on, but this is not possible in XFCE. It is possible though to change the GTK theme.</p></div>
