@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title>examples (easy_logging.examples)</title><link rel="stylesheet" href="../odoc.css"/><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body><div class="content"><header><nav><a href="../index.html">Up</a> – <a href="../index.html">easy_logging</a> &#x00BB; examples</nav></header><h1 id="examples"><a href="#examples" class="anchor"></a>Examples</h1><ol><li><a href="examples.html#centralized"><span>Centralize all logs to a single file</span></a></li><li><p><a href="examples.html#dynamic"><span>Dynamic level modification</span></a></p><ul><li><a href="examples.html#dyn_logger"><span>Of a Logging module</span></a></li><li><a href="examples.html#dyn_handler"><span>Of a handler</span></a></li></ul></li><li><p><a href="examples.html#handlers"><span>Defining your own Handlers</span></a></p><ul><li><a href="examples.html#basic_handlers"><span>Another kind of handler</span></a></li><li><a href="examples.html#tagged_handlers"><span>Tagged handlers</span></a></li></ul></li><li><code>file_handler_defaults</code></li></ol><h2 id="centralized"><a href="#centralized" class="anchor"></a>Centralize all logs to a single file</h2><p>All messages of level at least Warning will be written to <code>centralize.log</code>, while all logs of <code>A</code> and <code>B</code> will be written to their own file, and messages of level at least info will be printed on the terminal.</p><pre><code class="ml">open Easy_logging
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>examples (easy_logging.examples)</title><link rel="stylesheet" href="../odoc.css"/><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body><div class="content"><header><nav><a href="index.html">Up</a> – <a href="index.html">easy_logging</a> &#x00BB; examples</nav></header><h2 id="examples"><a href="#examples" class="anchor"></a>Examples</h2><ol><li><a href="examples.html#centralized"><span>Centralize all logs to a single file</span></a></li><li><p><a href="examples.html#dynamic"><span>Dynamic level modification</span></a></p><ul><li><a href="examples.html#dyn_logger"><span>Of a Logging module</span></a></li><li><a href="examples.html#dyn_handler"><span>Of a handler</span></a></li></ul></li><li><p><a href="examples.html#handlers"><span>Defining your own Handlers</span></a></p><ul><li><a href="examples.html#basic_handlers"><span>Another kind of handler</span></a></li><li><a href="examples.html#tagged_handlers"><span>Tagged handlers</span></a></li></ul></li><li><code>file_handler_defaults</code></li></ol><h3 id="centralized"><a href="#centralized" class="anchor"></a>Centralize all logs to a single file</h3><p>All messages of level at least Warning will be written to <code>centralize.log</code>, while all logs of <code>A</code> and <code>B</code> will be written to their own file, and messages of level at least info will be printed on the terminal.</p><pre><code class="ml">open Easy_logging
 
-let loggerA = Logging.make_logger &quot;A&quot; (Some Debug)
+let loggerA = Logging.make_logger &quot;A&quot; Debug
                 [Cli Info;File (&quot;A.log&quot;, Debug);
                  File (&quot;problems.log&quot;, Warning)]
-and loggerB = Logging.make_logger &quot;B&quot; (Some Debug)
+and loggerB = Logging.make_logger &quot;B&quot; Debug
                 [Cli Info;File (&quot;B.log&quot;, Debug);
-                 File (&quot;problems.log&quot;, Warning)] </code></pre><h2 id="dynamic"><a href="#dynamic" class="anchor"></a>Dynamic level modification</h2><h3 id="dyn_logger"><a href="#dyn_logger" class="anchor"></a>Of a Logging module</h3><p>file <code>a.ml</code>:</p><pre><code class="ml"> open Easy_logging
-logger = Logging.make_logger &quot;MyApp.A&quot; (Some Warning) (Cli Debug) </code></pre><p>file <code>main.ml</code>:</p><pre><code class="ml">open Easy_logging
+                 File (&quot;problems.log&quot;, Warning)] </code></pre><h3 id="dynamic"><a href="#dynamic" class="anchor"></a>Dynamic level modification</h3><h4 id="dyn_logger"><a href="#dyn_logger" class="anchor"></a>Of a Logging module</h4><p>file <code>a.ml</code>:</p><pre><code class="ml"> open Easy_logging
+let loggerA = Logging.make_logger &quot;MyApp.A&quot; Warning (Cli Debug) </code></pre><p>file <code>main.ml</code>:</p><pre><code class="ml">open Easy_logging
 if Sys.argv.(1) = &quot;debug&quot;
 then
-   Logging.set_level &quot;MyApp&quot; (Some Debug);</code></pre><h3 id="dyn_handler"><a href="#dyn_handler" class="anchor"></a>Of a handler</h3><pre><code class="ml">let h = Default_handlers.make (Cli Debug) in
-let logger = Logging.make_logger &quot;handlerTest&quot; (Some Debug) [] in
+   Logging.set_level &quot;MyApp&quot; Debug;</code></pre><p>At the call to <code>Logging.set_level</code>, the level of <code>loggerA</code> is set to <code>Debug</code> (because it's name begins with <code>MyApp</code>).</p><h4 id="dyn_handler"><a href="#dyn_handler" class="anchor"></a>Of a handler</h4><pre><code class="ml">let h = Default_handlers.make (Cli Debug) in
+let logger = Logging.make_logger &quot;handlerTest&quot; Debug [] in
 logger#add_handler h;
 logger#debug &quot;this message is displayed&quot;;
 Default_handlers.set_level h Info;
-logger#debug &quot;this message is not displayed&quot;</code></pre><h2 id="handlers"><a href="#handlers" class="anchor"></a>Defining your own Handlers</h2><h3 id="basic_handlers"><a href="#basic_handlers" class="anchor"></a>Another kind of handler</h3><p>This handler add messages to a <code>list ref</code> given at handler creation.</p><pre><code class="ml"> module MyHandlers =
+logger#debug &quot;this message is not displayed&quot;</code></pre><h3 id="handlers"><a href="#handlers" class="anchor"></a>Defining your own Handlers</h3><h4 id="basic_handlers"><a href="#basic_handlers" class="anchor"></a>Another kind of handler</h4><p>This handler add messages to a <code>list ref</code> given at handler creation.</p><pre><code class="ml"> module MyHandlers =
   struct
     type t = string -&gt; unit
     type tag = unit
@@ -38,9 +38,9 @@ logger#debug &quot;this message is not displayed&quot;</code></pre><h2 id="handl
 
 
 let l = ref [];;
-let mylogger = MyLogging.make_logger &quot;mylogger&quot; (Some Debug) [l];;
+let mylogger = MyLogging.make_logger &quot;mylogger&quot; Debug [l];;
 mylogger#info &quot;this is a message&quot;;
-l;;</code></pre><pre>val l : string list ref = {contents = [&quot;this is a message&quot;]}</pre><h3 id="tagged_handlers"><a href="#tagged_handlers" class="anchor"></a>Tagged handlers</h3><p>This handler handles tags passed with a log message:</p><pre><code class="ml">module TaggedHandlers =
+l;;</code></pre><pre>val l : string list ref = {contents = [&quot;this is a message&quot;]}</pre><h4 id="tagged_handlers"><a href="#tagged_handlers" class="anchor"></a>Tagged handlers</h4><p>This handler handles tags passed with a log message:</p><pre><code class="ml">module TaggedHandlers =
   struct
     type tag =
       | Time
@@ -93,8 +93,8 @@ l;;</code></pre><pre>val l : string list ref = {contents = [&quot;this is a mess
 
 module TagsLogging = MakeLogging(TaggedHandlers);;
 
-let logger = TagsLogging.make_logger &quot;tagged&quot; (Some Debug) [()];;
-logger#info ~tags:[Time; Value 4] &quot;log message with tags&quot;;</code></pre><pre>23/3 18:33:3 [Val: 4] log message with tags</pre><h2 id="file_handlers_defaults"><a href="#file_handlers_defaults" class="anchor"></a>Modifying the file handlers defaults</h2><pre><code class="ml">module H = Default_handlers
+let logger = TagsLogging.make_logger &quot;tagged&quot; Debug [()];;
+logger#info ~tags:[Time; Value 4] &quot;log message with tags&quot;;</code></pre><pre>23/3 18:33:3 [Val: 4] log message with tags</pre><h3 id="file_handlers_defaults"><a href="#file_handlers_defaults" class="anchor"></a>Modifying the file handlers defaults</h3><pre><code class="ml">module H = Default_handlers
 let defaults : H.file_handler_defaults_t = {
     logs_folder= &quot;test/&quot;;
     truncate= false;
@@ -102,5 +102,5 @@ let defaults : H.file_handler_defaults_t = {
 H.set_file_handler_defaults defaults;;
 module TestLogging = MakeLogging(H)
 let logger = TestLogging.make_logger
-               &quot;test&quot; (Some Debug) [File (&quot;test&quot;, Debug)];; 
+               &quot;test&quot; Debug [File (&quot;test&quot;, Debug)];; 
 logger#info &quot;this is a message&quot;;</code></pre></div></body></html>

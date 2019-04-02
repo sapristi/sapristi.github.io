@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>index (easy_logging_yojson.index)</title><link rel="stylesheet" href="../odoc.css"/><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body><div class="content"><header><nav><a href="../index.html">Up</a> – easy_logging_yojson</nav></header><h2 id="easy-logging-yojson"><a href="#easy-logging-yojson" class="anchor"></a>Easy logging yojson</h2><p>This package provides the same features as <a href="../easy_logging/Easy_logging/index.html"><code>Easy_logging</code></a>, but is extended with configuration loader from the json format, using <code>ppx_deriving_yojson</code> as a deserializer.</p><p>Logging modules created by <code>MakeLogging</code> are enriched with the three following functions to instantiate loggers and allow easy external configuration :</p><ul><li><pre><code class="ml">val load_config : Yojson.Safe.json -&gt; unit</code></pre></li><li><pre><code class="ml">val load_config_str : string -&gt; unit</code></pre></li><li><pre><code class="ml">val load_config_file : string -&gt; unit</code></pre></li></ul><h3 id="configuration-example"><a href="#configuration-example" class="anchor"></a>Configuration example</h3><pre>{
+    &quot;handlers&quot;: {
+        &quot;file_handlers&quot;: {
+             &quot;logs_folder&quot; : &quot;logs&quot;,
+             &quot;truncate&quot; : false
+        }
+    },
+    &quot;loggers&quot;: 
+        [
+            {
+                &quot;name&quot;: &quot;Main&quot;,
+                &quot;level&quot;: &quot;debug&quot;,
+                &quot;handlers&quot;: [ {&quot;cli&quot;: {&quot;level&quot; : &quot;debug&quot;}} ] },
+            {
+                &quot;name&quot;: &quot;Main.A&quot;,
+                &quot;level&quot;: &quot;info&quot;},
+            {
+                &quot;name&quot;: &quot;Main.B&quot;,
+                &quot;level&quot;: &quot;warning&quot;},
+            {
+                &quot;name&quot;: &quot;Main.C&quot;,
+                &quot;level&quot;: &quot;debug&quot;,
+                &quot;propagate&quot; : false,
+                &quot;handlers&quot;: [{ &quot;file&quot;: {&quot;filename&quot;: &quot;main.c.logs&quot;, 
+                                      &quot;level&quot; : &quot;info&quot;}}
+                           ] }
+        ]
+}</pre><h3 id="configuration-types"><a href="#configuration-types" class="anchor"></a>Configuration types</h3><h4 id="top-configuration"><a href="#top-configuration" class="anchor"></a>Top configuration</h4><pre><code class="ml">type config = {
+    handlers : H.config;     [@default H.default_config]
+    loggers : config_logger list
+  } </code></pre><h4 id="logger-configuration"><a href="#logger-configuration" class="anchor"></a>Logger configuration</h4><pre><code class="ml">type config_logger = {
+        name: string;
+        level : log_level;       [@default NoLevel]
+        handlers : H.desc list;  [@default [] ]
+        propagate : bool;        [@default true]
+      } </code></pre><h4 id="default-handlers-configuration"><a href="#default-handlers-configuration" class="anchor"></a>Default handlers configuration</h4><pre><code class="ml">type config_ = {file_handlers: file_handlers_config}
+
+type file_handlers_config_  =
+  { logs_folder: string;     [@default file_handlers_defaults.logs_folder]
+    truncate: bool;          [@default file_handlers_defaults.truncate]
+    file_perms: int          [@default file_handlers_defaults.file_perms]
+  }
+
+type cli_json_params = {level : log_level}
+
+type cli_json_desc =  {cli : cli_json_params}
+
+type file_json_desc_params = {filename : string;level: log_level}
+
+type file_json_desc = {file : file_json_desc_params}</code></pre><h3 id="reference"><a href="#reference" class="anchor"></a>Reference</h3><p><a href="Easy_logging_yojson/index.html"><code>Easy_logging_yojson</code></a></p></div></body></html>
