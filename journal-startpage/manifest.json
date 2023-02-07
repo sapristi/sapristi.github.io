@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "version": "1.6.3",
+  "version": "1.6.4",
   "short_name": "Journal Startpage",
   "name": "Journal Startpage",
   "author": "Mathias Millet <mathias@mmill.eu>",
@@ -18,5 +18,6 @@
     "gecko": {
       "id": "{0dad26d7-9d53-46ca-b0fb-4575ad60c2b0}"
     }
-  }
+  },
+  "content_security_policy": "connect-src ws://localhost:8097"
 }
