@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "version": "1.10.2",
+  "version": "1.11.0",
   "short_name": "Journal Startpage",
   "name": "Journal Startpage",
   "author": "Mathias Millet <mathias@mmill.eu>",
@@ -10,7 +10,8 @@
   },
   "permissions": [
     "storage",
-    "bookmarks"
+    "bookmarks",
+    "https://framagenda.org/*"
   ],
   "chrome_url_overrides": {
     "newtab": "index.html"
